@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="green_20">#618264</color>
+    <color name="green_40">#79AC78</color>
+    <color name="green_60">#B0D9B1</color>
+    <color name="green_80">#D0E7D2</color>
+    <color name="green_100">#EFFFF0</color>
+    <color name="grey_20">#6A6A6A</color>
+    <color name="grey_40">#939393</color>
+    <color name="grey_60">#BCBCBC</color>
+    <color name="grey_80">#D9D9D9</color>
+    <color name="black">#373737</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple">#9873D5</color>
+    <color name="yellow">#FED74B</color>
+    <color name="red">#FF3C3C</color>
 </resources>
