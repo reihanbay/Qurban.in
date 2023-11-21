@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_rounded_8dp"
+    android:padding="24dp"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TextBody.Medium.HeadlineSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/qurban_payment"/>
+
+    <TextView
+        android:id="@+id/tv_card"
+        style="@style/TextBody.Medium.BodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rekening"/>
+
+    <TextView
+        android:id="@+id/tv_number_card"
+        style="@style/TextBody.Medium.HeadlineSmall"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:textAlignment="center"
+        android:textColor="@color/green_20"
+        android:text="0111 0122 2301 1230"
+        android:background="@drawable/bg_rounded_outline_8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_summary_payment"
+        style="@style/TextBody.Medium.BodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/summary_payment"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/tv_item_name"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_weight="1"
+            android:textColor="@color/grey_40"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/qurban_item"/>
+
+        <TextView
+            android:id="@+id/tv_item_price"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_weight="1"
+            android:layout_marginTop="12dp"
+            android:textAlignment="textEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/price"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/tv_item_total"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_weight="1"
+            android:textColor="@color/green_20"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/total"/>
+
+        <TextView
+            android:id="@+id/tv_item_price_total"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_weight="1"
+            android:textColor="@color/green_20"
+            android:layout_marginTop="12dp"
+            android:textAlignment="textEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/price"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tv_confirmation_payment"
+        style="@style/TextBody.Medium.BodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/text_confirm_payment"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/btn_document"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_rounded_8dp"
+        android:backgroundTint="@color/green_100"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_name_file"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green_20"
+            android:text="Upload Bukti Pembayaran"/>
+        <ImageButton
+            android:id="@+id/btn_cancel_document"
+            android:src="@drawable/ic_document_cancel"
+            android:layout_marginHorizontal="12dp"
+            android:visibility="gone"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/text_confirm"
+        android:gravity="center"
+        />
+</androidx.appcompat.widget.LinearLayoutCompat>

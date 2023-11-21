@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_rounded_8dp"
+    android:gravity="center_horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="24dp"
+    android:padding="24dp">
+    <ImageView
+        android:id="@+id/iv_illus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/illus_farm"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/TextBody.Medium.HeadlineSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Sapi"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_illus"/>
+
+    <TextView
+        android:id="@+id/tv_desc"
+        style="@style/TextBody.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:letterSpacing="0.18"
+        tools:text="Anda akan mendaftar Sapi - Grup 1 dengan tagihan Rp. 4000.000,00"
+        app:layout_constraintTop_toBottomOf="@id/iv_illus"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        tools:text="Daftar Qurban"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

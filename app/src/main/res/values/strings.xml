@@ -2,4 +2,20 @@
     <string name="app_name">Qurban.In</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="registered">Terdaftar</string>
+    <string name="execution">Pelaksanaan</string>
+    <string name="deliver">Pengambilan</string>
+    <string name="stock">Ketersediaan</string>
+    <string name="register">Daftar</string>
+    <string name="status_qurban">Status Qurban</string>
+    <string name="text_lets_pay">Ayo Bayar!</string>
+    <string name="text_note_pricing">Rp.%s / Pekurban</string>
+    <string name="rekening">Rekening %s</string>
+    <string name="qurban_payment">Pembayaran Qurban</string>
+    <string name="summary_payment">Ringkasan Pembayaran</string>
+    <string name="qurban_item">Qurban %s</string>
+    <string name="price">Rp. %s</string>
+    <string name="total">Total</string>
+    <string name="text_confirm">Konfirmasi!</string>
+    <string name="text_confirm_payment">Konfirmasi Pembayaran</string>
 </resources>
