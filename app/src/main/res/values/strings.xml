@@ -56,4 +56,22 @@
     <string name="image_organizer">Gambar penyelenggara</string>
     <string name="enter_current_location">Masukkan Lokasi Terkini</string>
     <string name="nearest_organizer">Penyelenggara Terdekat</string>
+    <string name="loginAccount">Masuk ke akun</string>
+    <string name="email">Email</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="Login">Masuk</string>
+    <string name="notHaveAccount">Tidak punya akun?</string>
+    <string name="createAccount">Daftar</string>
+    <string name="berkah_purwokerto_selatan">Berkah, Purwokerto Selatan</string>
+    <string name="ketersediaan">Ketersediaan</string>
+    <string name="qurban">Qurban</string>
+    <string name="masjid_al_ikhlas">Masjid Al-Ikhlas</string>
+    <string name="pelaksanaan">Pelaksanaan</string>
+    <string name="_28_juni_2024">28 Juni 2024</string>
+    <string name="pengambilan">Pengambilan</string>
+    <string name="_13_00">13.00</string>
+    <string name="dummy5">5</string>
+    <string name="slash">/</string>
+    <string name="lima">5</string>
+    <string name="dummy10">10</string>
 </resources>
