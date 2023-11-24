@@ -18,6 +18,15 @@
     <string name="total">Total</string>
     <string name="text_confirm">Konfirmasi!</string>
     <string name="text_confirm_payment">Konfirmasi Pembayaran</string>
+    <string name="history">Daftar Riwayat</string>
+    <string name="organizer_name">Penyelenggara</string>
+    <string name="organizer_address">Alamat Penyelenggara</string>
+    <string name="account_name">Nama</string>
+    <string name="account_email">contoh@email.com</string>
+    <string name="change_profile">Ubah Profil</string>
+    <string name="qurban_registered">Qurban Terdaftar</string>
+    <string name="iv_description_logo">Gambar Aplikasi Qurban.in</string>
+    <string name="iv_description_logout">Gambar Logout Akun</string>
     <string name="illus_register">Gambar ilustrasi daftar</string>
     <string name="accout_register">Daftar akun</string>
     <string name="email">Email</string>
