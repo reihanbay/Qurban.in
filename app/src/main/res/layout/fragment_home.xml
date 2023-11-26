@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:clipToPadding="false"
+        android:clipChildren="false"
         android:padding="24dp">
 
         <ImageView
@@ -22,7 +24,7 @@
 
         <TextView
             android:id="@+id/tv_greeting"
-            style="@style/TextBody.BodyLarge"
+            style="@style/TextBody.Medium.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -30,22 +32,18 @@
 
         <TextView
             android:id="@+id/tv_user_location"
+            style="@style/TextBody.Bold.BodyLarge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:fontFamily="@font/roboto_bold"
+            android:layout_marginBottom="24dp"
             android:maxLines="2"
             android:text="@string/dummy_user_location"
-            android:textColor="@color/green_20"
-            android:textSize="16sp" />
+            android:textColor="@color/green_20" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view_organizer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_custom_input"
-            android:inputType="text"
+            style="@style/SearchViewStyle"
             android:theme="@style/SearchViewStyle"
             app:iconifiedByDefault="false"
             app:queryHint="@string/search_organizer" />

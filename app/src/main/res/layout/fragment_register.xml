@@ -19,12 +19,11 @@
 
     <TextView
         android:id="@+id/text_account_register"
-        style="@style/TextBody.Bold"
+        style="@style/TextBody.Bold.TitleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/accout_register"
-        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_login_page" />
 
@@ -103,7 +102,7 @@
     <Button
         android:id="@+id/btn_register"
         style="@style/Button"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="48dp"
         android:text="@string/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

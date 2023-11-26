@@ -2,19 +2,12 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_enter_current_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:visibility="gone"
-        android:text="@string/enter_current_location"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -22,26 +15,35 @@
         android:layout_marginBottom="12dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
-        app:cardMaxElevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:cardPreventCornerOverlap="false"
+        app:cardMaxElevation="10dp"
+        android:outlineSpotShadowColor="#26373737"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_view_organizer">
+        app:layout_constraintTop_toBottomOf="@id/search_view_organizer"
+        tools:targetApi="p">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="12dp">
-
+            <TextView
+                android:id="@+id/text_enter_current_location"
+                style="@style/TextBody.Bold.BodyLarge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:paddingBottom="24dp"
+                android:textColor="@color/green_40"
+                android:text="@string/enter_current_location"/>
             <TextView
                 android:id="@+id/text_province"
                 style="@style/TextBody.Medium.LabelMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textColor="@color/green_40"
                 android:text="@string/province"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/text_enter_current_location" />
 
             <EditText
                 android:id="@+id/et_province"
@@ -64,12 +66,12 @@
             <TextView
                 android:id="@+id/text_city"
                 style="@style/TextBody.Medium.LabelMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textColor="@color/green_40"
                 android:layout_marginStart="5dp"
                 android:text="@string/city"
                 app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/text_province"
+                app:layout_constraintBottom_toBottomOf="@id/text_province"/>
 
             <EditText
                 android:id="@+id/et_city"
@@ -92,8 +94,7 @@
             <TextView
                 android:id="@+id/text_district"
                 style="@style/TextBody.Medium.LabelMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textColor="@color/green_40"
                 android:layout_marginTop="6dp"
                 android:text="@string/district"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,6 +114,8 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:textSize="12sp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toTopOf="@id/btn_search"
                 app:layout_constraintEnd_toStartOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_district" />
@@ -120,8 +123,7 @@
             <TextView
                 android:id="@+id/text_sub_district"
                 style="@style/TextBody.Medium.LabelMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textColor="@color/green_40"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="6dp"
                 android:text="@string/sub_district"
@@ -142,6 +144,8 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:textSize="12sp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toTopOf="@id/btn_search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/text_sub_district" />
@@ -152,16 +156,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_search"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                style="@style/Button"
+                android:text="@string/lets_search"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btn_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/green_40"
-        android:text="@string/lets_search"
-        android:textSize="16sp"
-        app:cornerRadius="8dp"/>
 
 </LinearLayout>
