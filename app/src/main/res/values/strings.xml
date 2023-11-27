@@ -62,4 +62,6 @@
     <string name="label_event_stock">Ketersediaan</string>
     <string name="label_event_date">Pelaksanaan</string>
     <string name="label_event_time_take">Pengambilan</string>
+    <string name="home">Beranda</string>
+    <string name="profile">Profil</string>
 </resources>
