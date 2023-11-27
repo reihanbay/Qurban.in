@@ -1,4 +1,4 @@
-package com.dicoding.qurbanin.core.utils
+package com.dicoding.qurbanin.core.utils.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -18,7 +18,7 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
         private var INSTANCE : SettingPreferences? = null
 
         fun getInstance(dataStore: DataStore<Preferences>) : SettingPreferences {
-            return INSTANCE?: synchronized(this) {
+            return INSTANCE ?: synchronized(this) {
                 val instance = SettingPreferences(dataStore)
                 INSTANCE = instance
                 instance
