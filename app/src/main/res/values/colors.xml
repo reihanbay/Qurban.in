@@ -5,6 +5,8 @@
     <color name="green_60">#B0D9B1</color>
     <color name="green_80">#D0E7D2</color>
     <color name="green_100">#EFFFF0</color>
+    <color name="green_white">#EAEAEA</color>
+    <color name="background_bottom_nav">#fff</color>
     <color name="grey_20">#6A6A6A</color>
     <color name="grey_40">#939393</color>
     <color name="grey_60">#BCBCBC</color>

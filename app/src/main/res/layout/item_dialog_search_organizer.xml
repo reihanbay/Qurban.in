@@ -7,12 +7,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardMaxElevation="10dp"

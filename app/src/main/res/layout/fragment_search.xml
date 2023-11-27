@@ -16,16 +16,17 @@
             android:layout_height="32dp"
             android:src="@drawable/ic_arrow_bgcircle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="backButton"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_location_search"
             style="@style/TextBody.Bold.BodyLarge"
             android:layout_width="0dp"
             android:layout_marginTop="24dp"
-            android:text="Berkoh, Purwokerto Selatan \nBanyumas"
+            tools:text="Berkoh, Purwokerto Selatan \nBanyumas"
             android:textColor="@color/green_20"
-            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_back" />
@@ -37,7 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/bg_custom_input"
-            style="@style/SearchViewStyle"
             android:theme="@style/SearchViewStyle"
             app:iconifiedByDefault="false"
             app:queryHint="@string/search_organizer"
