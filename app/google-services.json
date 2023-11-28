@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "937906184033",
+    "project_id": "qurban-in",
+    "storage_bucket": "qurban-in.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937906184033:android:b8b5a33bde0aa761386f20",
+        "android_client_info": {
+          "package_name": "com.dicoding.qurbanin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgH80jnm_S45vtF0QL69odY-TTpr-uJWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
