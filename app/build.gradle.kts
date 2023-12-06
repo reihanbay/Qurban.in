@@ -16,7 +16,16 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", "\"https://emsifa.github.io/api-wilayah-indonesia/api/\"")
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            "\"https://emsifa.github.io/api-wilayah-indonesia/api/\""
+        )
+        buildConfigField(
+            "String",
+            "DATABASE_URL",
+            "\"https://qurban-in-default-rtdb.asia-southeast1.firebasedatabase.app/\""
+        )
     }
 
     buildTypes {
@@ -69,11 +78,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
-
+    implementation("androidx.datastore:datastore-core:1.0.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
