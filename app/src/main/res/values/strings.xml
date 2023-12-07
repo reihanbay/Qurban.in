@@ -29,7 +29,8 @@
     <string name="accout_register">Daftar akun</string>
     <string name="email">Email</string>
     <string name="password">Kata Sandi</string>
-    <string name="user_name">Warga/Pekurban</string>
+    <string name="address">Alamat</string>
+    <string name="user_type">Warga/Penyelenggara</string>
     <string name="have_account">Sudah punya akun?</string>
     <string name="login">Masuk</string>
     <string name="search_organizer">Cari Penyelenggara</string>
@@ -64,4 +65,12 @@
     <string name="label_event_time_take">Pengambilan</string>
     <string name="home">Beranda</string>
     <string name="profile">Profil</string>
+    <string name="field_required">Isi terlebih dahulu!</string>
+    <string name="name_is_not_valid">Nama hanya berisi huruf!</string>
+    <string name="email_is_not_valid">Masukkan email yang sesuai!</string>
+    <string name="password_length_is_not_valid">Min. 8 karakter</string>
+    <string-array name="user_type">
+        <item>Warga</item>
+        <item>Penyelenggara</item>
+    </string-array>
 </resources>
