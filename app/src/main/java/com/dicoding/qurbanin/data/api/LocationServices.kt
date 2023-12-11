@@ -1,9 +1,9 @@
 package com.dicoding.qurbanin.data.api
 
-import com.dicoding.qurbanin.data.response.DistrictResponse
-import com.dicoding.qurbanin.data.response.ProvinceResponseItem
-import com.dicoding.qurbanin.data.response.RegencyResponse
-import com.dicoding.qurbanin.data.response.VillageResponse
+import com.dicoding.qurbanin.data.model.DistrictResponse
+import com.dicoding.qurbanin.data.model.ProvinceResponseItem
+import com.dicoding.qurbanin.data.model.RegencyResponse
+import com.dicoding.qurbanin.data.model.VillageResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 

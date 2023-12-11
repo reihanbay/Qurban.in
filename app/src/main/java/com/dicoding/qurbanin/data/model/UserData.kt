@@ -1,4 +1,4 @@
-package com.dicoding.qurbanin.data
+package com.dicoding.qurbanin.data.model
 
 data class UserData(
     val id: String? = null,
