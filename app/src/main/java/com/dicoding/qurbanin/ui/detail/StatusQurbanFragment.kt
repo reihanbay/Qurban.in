@@ -5,14 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SimpleItemAnimator
-import com.dicoding.qurbanin.R
-import com.dicoding.qurbanin.data.model.EventQurbanResponse
-import com.dicoding.qurbanin.data.model.StockDataResponse
 import com.dicoding.qurbanin.databinding.FragmentStatusQurbanBinding
-import com.google.android.material.button.MaterialButton
 
 class StatusQurbanFragment : Fragment() {
     private lateinit var bind : FragmentStatusQurbanBinding

@@ -5,7 +5,7 @@
     android:scrollbarSize="0dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/container"
@@ -85,7 +85,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_registered_label"
             android:layout_marginTop="4dp"
-            android:src="@drawable/ic_goat"/>
+            android:src="@drawable/ic_goat"
+            android:contentDescription="@string/cd_icon_goat" />
         <TextView
             android:id="@+id/tv_count_pieces_sohibul"
             style="@style/TextBody.Medium.BodyLarge"
@@ -106,7 +107,8 @@
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/tv_registered_label"
             android:layout_marginTop="4dp"
-            android:src="@drawable/ic_cow"/>
+            android:src="@drawable/ic_cow"
+            android:contentDescription="@string/cd_icon_cow" />
         <TextView
             android:id="@+id/tv_count_group_sohibul"
             style="@style/TextBody.Medium.BodyLarge"

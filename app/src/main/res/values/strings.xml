@@ -72,6 +72,8 @@
     <string name="textStock">%1$s / %2$s</string>
     <string name="textDescDialogRegister">Anda akan mendaftar %s dengan tagihan %s</string>
     <string name="register_qurban">Daftar Qurban</string>
+    <string name="cd_icon_goat">icon_goat</string>
+    <string name="cd_icon_cow">cd icon cow</string>
     <string-array name="user_type">
         <item>Warga</item>
         <item>Penyelenggara</item>

@@ -11,17 +11,13 @@ import com.dicoding.qurbanin.data.model.DataEventItem
 import com.dicoding.qurbanin.data.model.SoldByItem
 import com.dicoding.qurbanin.data.model.StockDataItem
 import com.dicoding.qurbanin.data.model.StockDataResponse
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 
 class QurbanRepository private constructor(private val dbReference: DatabaseReference) {
     fun getListEvent() : LiveData<Result<List<EventQurbanResponse>>> = liveData {

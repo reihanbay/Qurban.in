@@ -40,7 +40,9 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_name_stock"
-            app:layout_constraintBottom_toBottomOf="@id/tv_note_pricing"/>
+            app:layout_constraintBottom_toBottomOf="@id/tv_note_pricing"
+            android:contentDescription="btn_dropdown"
+            tools:ignore="HardcodedText" />
         <LinearLayout
             android:id="@+id/ll_participation"
             android:orientation="vertical"

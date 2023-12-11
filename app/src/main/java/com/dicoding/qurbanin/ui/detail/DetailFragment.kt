@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,11 +20,6 @@ import com.dicoding.qurbanin.data.model.StockDataResponse
 import com.dicoding.qurbanin.databinding.FragmentDetailBinding
 import com.dicoding.qurbanin.ui.ViewModelFactory
 import com.dicoding.qurbanin.ui.adapter.EventStockAdapter
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 class DetailFragment : Fragment() {
     private lateinit var bind : FragmentDetailBinding
@@ -68,7 +62,7 @@ class DetailFragment : Fragment() {
         bind.ivBack.setOnClickListener { findNavController().previousBackStackEntry }
 
         var dataSelect : StockDataResponse? = null
-        stockAdapter.setOnClickItemListener(object : EventStockAdapter.setListenerClick{
+        stockAdapter.setOnClickItemListener(object : EventStockAdapter.SetListenerClick{
             override fun setOnClickItemListener(data: StockDataResponse?) {
                 dataSelect = data
             }

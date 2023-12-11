@@ -1,6 +1,5 @@
 package com.dicoding.qurbanin.data.model
 
-import com.google.gson.annotations.SerializedName
 
 
 

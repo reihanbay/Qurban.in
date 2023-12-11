@@ -2,8 +2,6 @@ package com.dicoding.qurbanin.core.utils.utility
 
 import android.content.Context
 import android.view.LayoutInflater
-import androidx.core.content.ContextCompat
-import com.dicoding.qurbanin.R
 import com.dicoding.qurbanin.databinding.ItemDialogInfoBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 

@@ -2,15 +2,9 @@ package com.dicoding.qurbanin.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.qurbanin.R
-import com.dicoding.qurbanin.data.model.EventQurbanResponse
 import com.dicoding.qurbanin.data.model.StockDataResponse
 import com.dicoding.qurbanin.databinding.ItemStockQurbanBinding
 import com.dicoding.qurbanin.databinding.ItemStockSoldByBinding
@@ -21,9 +15,9 @@ class EventStockAdapter(val list: MutableList<StockDataResponse> = mutableListOf
 //    inner class DataCallback(private val old : List<StockDataResponse>, private val new: List<StockDataResponse>) : DiffUtil.Callback() {
 
 //    }
-    var listener : setListenerClick? = null
+    var listener : SetListenerClick? = null
 
-    fun setOnClickItemListener(listenerClick: setListenerClick) {
+    fun setOnClickItemListener(listenerClick: SetListenerClick) {
         listener = listenerClick
     }
 
@@ -56,7 +50,7 @@ class EventStockAdapter(val list: MutableList<StockDataResponse> = mutableListOf
             if (item.dataItem?.Type == "group") {
                 for (i in item.SoldBy?.indices!!) {
                     val view = ItemStockSoldByBinding.inflate(LayoutInflater.from(holder.itemView.context), llParticipation, true)
-                    view.nameSold.text = item.SoldBy.get(i).name ?:"Kosong"
+                    view.nameSold.text = item.SoldBy[i].name
                     llParticipation.removeAllViews()
                     llParticipation.addView(view.root)
                 }
@@ -92,7 +86,7 @@ class EventStockAdapter(val list: MutableList<StockDataResponse> = mutableListOf
 
     override fun getItemCount(): Int = list.size
 
-    interface setListenerClick {
+    interface SetListenerClick {
         fun setOnClickItemListener(data: StockDataResponse?)
     }
 }
