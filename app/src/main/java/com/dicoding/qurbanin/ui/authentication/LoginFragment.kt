@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        databaseRef = FirebaseDatabase.getInstance(LoginFragment.DATABASE_URL).reference
+        databaseRef = FirebaseDatabase.getInstance(BuildConfig.DATABASE_URL).reference
 
         settingPreferences = SettingPreferences.getInstance(requireContext().datastore)
 
