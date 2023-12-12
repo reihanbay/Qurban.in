@@ -1,4 +1,4 @@
-package com.dicoding.qurbanin.ui.home.adapter
+package com.dicoding.qurbanin.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

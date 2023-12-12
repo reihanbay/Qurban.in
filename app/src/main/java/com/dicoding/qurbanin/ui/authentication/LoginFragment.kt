@@ -35,7 +35,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
 
         _binding = FragmentLoginBinding.inflate(inflater,container, false)
@@ -47,7 +47,7 @@ class LoginFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         databaseRef = FirebaseDatabase.getInstance(LoginFragment.DATABASE_URL).reference
-        
+
         settingPreferences = SettingPreferences.getInstance(requireContext().datastore)
 
         binding.materialButton.setOnClickListener {
@@ -103,13 +103,8 @@ class LoginFragment : Fragment() {
             }
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    companion object {
-        private const val DATABASE_URL = BuildConfig.DATABASE_URL
     }
 }
