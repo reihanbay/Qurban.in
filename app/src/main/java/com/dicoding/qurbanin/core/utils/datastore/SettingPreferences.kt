@@ -29,6 +29,8 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
     private val AUTH_SESSION = booleanPreferencesKey("is_login")
     private val LOCATION = stringPreferencesKey("location")
 
+    private val USER_NAME = stringPreferencesKey("user_name")
+
     fun isLogin() : Flow<Boolean> {
         return dataStore.data.map {
             it[AUTH_SESSION] ?: false
@@ -58,6 +60,18 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
     suspend fun deletePreference() {
         dataStore.edit {
             it.clear()
+        }
+    }
+
+    fun getUsername() : Flow<String> {
+        return dataStore.data.map {
+            it[USER_NAME] ?: ""
+        }
+    }
+
+    suspend fun setUserName(userName: String) {
+        dataStore.edit {
+            it[USER_NAME] = userName
         }
     }
 }

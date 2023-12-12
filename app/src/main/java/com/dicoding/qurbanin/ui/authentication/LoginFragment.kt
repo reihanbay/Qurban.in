@@ -1,34 +1,26 @@
 package com.dicoding.qurbanin.ui.authentication
 
-import android.content.Intent
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.dicoding.qurbanin.BuildConfig
 import com.dicoding.qurbanin.R
 import com.dicoding.qurbanin.core.utils.datastore.SettingPreferences
 import com.dicoding.qurbanin.core.utils.datastore.datastore
-import com.dicoding.qurbanin.data.UserData
 import com.dicoding.qurbanin.databinding.FragmentLoginBinding
-import com.dicoding.qurbanin.ui.home.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.core.Context
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -38,6 +30,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var settingPreferences: SettingPreferences
+    private lateinit var databaseRef: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,10 +45,9 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         firebaseAuth = FirebaseAuth.getInstance()
-
-
+        databaseRef = FirebaseDatabase.getInstance(LoginFragment.DATABASE_URL).reference
+        
         settingPreferences = SettingPreferences.getInstance(requireContext().datastore)
 
         binding.materialButton.setOnClickListener {
@@ -84,21 +76,40 @@ class LoginFragment : Fragment() {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
 
-                    lifecycleScope.launch {
-                        settingPreferences.setLoginSession(true)
+                    val user = firebaseAuth.currentUser
+
+                    user?.uid?.let { uid ->
+                        databaseRef.child("Users").child(uid)
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    val userName = snapshot.child("Nama").value.toString()
+
+                                    lifecycleScope.launch {
+                                        settingPreferences.setLoginSession(true)
+                                        settingPreferences.setUserName(userName)
+                                    }
+                                    findNavController().navigate(R.id.action_loginFragment_to_homeContainerFragment)
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    Toast.makeText(requireContext(),"getData failed", Toast.LENGTH_SHORT).show()
+                                }
+                            })
                     }
-
-                    findNavController().navigate(R.id.action_loginFragment_to_homeContainerFragment)
                 } else {
                     Toast.makeText(requireContext(), "Login Failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private const val DATABASE_URL = BuildConfig.DATABASE_URL
     }
 }
