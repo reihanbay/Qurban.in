@@ -26,7 +26,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:targetApi="s"
-            android:contentDescription="Mosque" />
+            android:contentDescription="Mosque"
+            tools:ignore="HardcodedText" />
 
 
         <TextView
@@ -101,7 +102,9 @@
             android:layout_marginTop="4dp"
             android:src="@drawable/ic_goat"
             app:layout_constraintStart_toStartOf="@+id/tv_label_stock"
-            app:layout_constraintTop_toBottomOf="@+id/tv_label_stock" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_stock"
+            android:contentDescription="SingleIcon"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_goat_value"
@@ -120,7 +123,9 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_cow"
             app:layout_constraintStart_toEndOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/tv_label_stock" />
+            app:layout_constraintTop_toBottomOf="@id/tv_label_stock"
+            android:contentDescription="GroupIcon"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_cow_value"

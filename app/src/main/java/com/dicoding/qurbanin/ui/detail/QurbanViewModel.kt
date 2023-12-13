@@ -16,7 +16,6 @@ class QurbanViewModel(val repository: QurbanRepository) : ViewModel() {
 
     private val _listEventData = MutableLiveData<Result<List<EventQurbanResponse>>>()
     val listEventData  : LiveData<Result<List<EventQurbanResponse>>> = _listEventData
-//    fun getListEvent() = repository.getListEvent()
 
     fun getEventById(idEvent: String) = repository.getEventById(idEvent)
 
