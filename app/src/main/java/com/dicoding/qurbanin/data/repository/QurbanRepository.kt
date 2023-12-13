@@ -16,66 +16,83 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class QurbanRepository private constructor(private val dbReference: DatabaseReference) {
-    fun getListEvent() : LiveData<Result<List<EventQurbanResponse>>> = liveData {
-        val result = MutableLiveData<Result<List<EventQurbanResponse>>>()
-        result.value = Result.Loading
-        val dataList = mutableListOf<EventQurbanResponse>()
-        CoroutineScope(Dispatchers.IO).launch {
-            dbReference.child("Event").addValueEventListener(object : ValueEventListener{
+    suspend fun getListEvent() : Flow<Result<List<EventQurbanResponse>>> = callbackFlow {
+            val dataList = mutableListOf<EventQurbanResponse>()
+            trySendBlocking(Result.Loading)
+            val listener = object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     snapshot.children.forEach{
                         val data = it.getValue(DataEventItem::class.java)
-                        dataList.add(EventQurbanResponse( it.key.toString(), data))
+                        val listStock = mutableListOf<StockDataResponse>()
+
+                        it.child("Ketersediaan").children.forEach {stock ->
+                            val listSold = mutableListOf<SoldByItem>()
+                            //Get Data SoldBy
+                            stock.child("SoldBy").children.forEach { soldBy->
+                                //add Sold to ListSold
+                                listSold.add(SoldByItem(soldBy.key.toString(),
+                                    soldBy.getValue(String::class.java).toString()
+                                ))
+                            }
+
+                            //add Stock to ListStock
+                            listStock.add(StockDataResponse(stock.key.toString(), stock.getValue(StockDataItem::class.java),listSold))
+                        }
+                        dataList.add(EventQurbanResponse( it.key.toString(), data, listStock))
                     }
-                    result.value = Result.Success(dataList)
+                    trySendBlocking(Result.Success(dataList))
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    result.value = Result.Error(error.message)
+                    trySendBlocking(Result.Error(error.message))
                 }
-            })
-        }
-        emitSource(result)
+            }
+            dbReference.child("Event").addValueEventListener(listener)
+       awaitClose {
+           dbReference.child("Event").removeEventListener(listener)
+       }
     }
+
+
 
     fun getEventById(idEvent: String) : LiveData<Result<EventQurbanResponse>> = liveData{
         val result = MutableLiveData<Result<EventQurbanResponse>>()
         result.value = Result.Loading
-        dbReference.child("Event").child(idEvent).get().addOnSuccessListener {
-            val dataEvent = it.getValue(DataEventItem::class.java)
-            val listStock = mutableListOf<StockDataResponse>()
-            Log.d("TAG", "getEventData ${dbReference.child("Event").child(idEvent)} ")
+        CoroutineScope(Dispatchers.IO).launch {
+            dbReference.child("Event").child(idEvent).get().addOnSuccessListener {
+                val dataEvent = it.getValue(DataEventItem::class.java)
+                val listStock = mutableListOf<StockDataResponse>()
 
-            Log.d("TAG", "getEventData 1 $dataEvent ")
-            //Get Data Stock
-            it.child("Ketersediaan").children.forEach {stock ->
-                val listSold = mutableListOf<SoldByItem>()
-                Log.d("TAG", "getEventData 2 $stock ")
+                it.child("Ketersediaan").children.forEach {stock ->
+                    val listSold = mutableListOf<SoldByItem>()
+                    //Get Data SoldBy
+                    stock.child("SoldBy").children.forEach { soldBy->
+                        //add Sold to ListSold
+                        listSold.add(SoldByItem(soldBy.key.toString(),
+                            soldBy.getValue(String::class.java).toString()
+                        ))
+                    }
 
-                //Get Data SoldBy
-                stock.child("SoldBy").children.forEach { soldBy->
-                    Log.d("TAG", "getEventData 3 $soldBy ")
-                    //add Sold to ListSold
-                    listSold.add(SoldByItem(soldBy.key.toString(),
-                        soldBy.getValue(String::class.java).toString()
-                    ))
+                    //add Stock to ListStock
+                    listStock.add(StockDataResponse(stock.key.toString(), stock.getValue(StockDataItem::class.java),listSold))
                 }
+                result.value = Result.Success(EventQurbanResponse(it.key.toString(), dataEvent, listStock))
 
-                //add Stock to ListStock
-                listStock.add(StockDataResponse(stock.key.toString(), stock.getValue(StockDataItem::class.java),listSold))
+            }.addOnFailureListener {
+                result.value = Result.Error(it.message?: "Failed Get Data")
             }
-            result.value = Result.Success(EventQurbanResponse(it.key.toString(), dataEvent, listStock))
-
-        }.addOnFailureListener {
-            result.value = Result.Error(it.message?: "Failed Get Data")
         }
-        Log.d("TAG", "getEventById: ${result.value} ")
         emitSource(result)
     }
+
 
     suspend fun getStockByIdEvent(idEvent: String) = withContext(Dispatchers.IO) {
         dbReference.child("Event").child(idEvent).child("Ketersediaan").addValueEventListener(object : ValueEventListener{

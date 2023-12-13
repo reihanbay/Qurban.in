@@ -12,7 +12,6 @@ object DialogUtils {
             .setView(bind.root)
             .setCancelable(true)
 
-
         val dialog = build.show()
         bind.tvTitle.text = title
         bind.tvDesc.text = desc

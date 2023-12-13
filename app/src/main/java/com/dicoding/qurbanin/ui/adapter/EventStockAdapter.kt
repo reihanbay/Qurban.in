@@ -47,16 +47,23 @@ class EventStockAdapter(val list: MutableList<StockDataResponse> = mutableListOf
                 llParticipation.isVisible = !btnIconDropdown.isActivated
                 btnIconDropdown.isActivated = !btnIconDropdown.isActivated
             }
+            llParticipation.removeAllViews()
             if (item.dataItem?.Type == "group") {
                 for (i in item.SoldBy?.indices!!) {
                     val view = ItemStockSoldByBinding.inflate(LayoutInflater.from(holder.itemView.context), llParticipation, true)
                     view.nameSold.text = item.SoldBy[i].name
-                    llParticipation.removeAllViews()
+                    llParticipation.removeView(view.root)
+                    llParticipation.addView(view.root)
+                }
+                for (i in 1 .. (7-item.SoldBy.size)) {
+                    val view = ItemStockSoldByBinding.inflate(LayoutInflater.from(holder.itemView.context), llParticipation, true)
+                    view.nameSold.text = "Kosong"
+                    llParticipation.removeView(view.root)
                     llParticipation.addView(view.root)
                 }
             } else {
                 val view = ItemStockSoldByBinding.inflate(LayoutInflater.from(holder.itemView.context), llParticipation, true)
-                view.nameSold.text = item.SoldBy?.get(0)?.name ?:"Kosong"
+                view.nameSold.text = if (item.SoldBy?.isEmpty() == true) "Kosong" else item.SoldBy?.get(0)?.name ?:"Kosong"
                 llParticipation.removeAllViews()
                 llParticipation.addView(view.root)
             }
@@ -67,7 +74,7 @@ class EventStockAdapter(val list: MutableList<StockDataResponse> = mutableListOf
                 if (selected) clContainer.setBackgroundColor(holder.itemView.context.getColor(R.color.green_100))
                 else clContainer.setBackgroundColor(holder.itemView.context.getColor(R.color.white))
             }
-            colorBg(position == selectedItemPosition)
+            colorBg(selectedItemPosition == position )
             clContainer.setOnClickListener{
                 if (item.dataItem?.StatusStock != "sold") {
                     selectedItemPosition = position

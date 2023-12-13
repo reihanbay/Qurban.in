@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -27,6 +28,7 @@ class DetailFragment : Fragment() {
     private val viewModel : QurbanViewModel by viewModels {
         factory
     }
+    private val args : DetailFragmentArgs by navArgs()
     private val stockAdapter : EventStockAdapter by lazy { EventStockAdapter() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +45,7 @@ class DetailFragment : Fragment() {
         initAction()
     }
     private fun initObservable() {
-        viewModel.getEventById("Event01").observe(viewLifecycleOwner) {
+        viewModel.getEventById(args.idEvent).observe(viewLifecycleOwner) {
             Log.d("Asd", "initObservable: $it")
             when(it) {
                 is Result.Success -> {
@@ -59,7 +61,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun initAction() {
-        bind.ivBack.setOnClickListener { findNavController().previousBackStackEntry }
+        bind.ivBack.setOnClickListener { findNavController().popBackStack() }
 
         var dataSelect : StockDataResponse? = null
         stockAdapter.setOnClickItemListener(object : EventStockAdapter.SetListenerClick{
