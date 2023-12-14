@@ -84,6 +84,7 @@ class LoginFragment : Fragment() {
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     val userName = snapshot.child("Nama").value.toString()
                                     val userEmail = user.email.toString()
+                                    val userId = user.uid.toString()
 
                                     lifecycleScope.launch {
                                         settingPreferences.setLoginSession(true)
