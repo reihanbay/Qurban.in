@@ -1,6 +1,7 @@
 package com.dicoding.qurbanin.core.utils.datastore
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -13,21 +14,14 @@ import kotlinx.coroutines.flow.map
 
 val Context.datastore : DataStore<Preferences> by  preferencesDataStore("settings")
 class SettingPreferences private constructor(private val dataStore: DataStore<Preferences>){
-    companion object {
-        @Volatile
-        private var INSTANCE : SettingPreferences? = null
-
-        fun getInstance(dataStore: DataStore<Preferences>) : SettingPreferences {
-            return INSTANCE ?: synchronized(this) {
-                val instance = SettingPreferences(dataStore)
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
+    private val TAG = SettingPreferences::class.java.simpleName
 
     private val AUTH_SESSION = booleanPreferencesKey("is_login")
     private val LOCATION = stringPreferencesKey("location")
+
+    private val USER_NAME = stringPreferencesKey("user_name")
+    private val USER_EMAIL = stringPreferencesKey("user_email")
+    private val USER_ID = stringPreferencesKey("user_id")
 
     fun isLogin() : Flow<Boolean> {
         return dataStore.data.map {
@@ -52,12 +46,63 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
     suspend fun setLocation(location : String) {
         dataStore.edit {
             it[LOCATION] = location
+
+            Log.i(TAG, "Location on Class SettingPreferences: $location")
         }
     }
 
     suspend fun deletePreference() {
         dataStore.edit {
             it.clear()
+        }
+    }
+
+    fun getUsername() : Flow<String> {
+        return dataStore.data.map {
+            it[USER_NAME] ?: ""
+        }
+    }
+
+    suspend fun setUserName(userName: String) {
+        dataStore.edit {
+            it[USER_NAME] = userName
+        }
+    }
+
+    fun getUserEmail(): Flow<String> {
+        return dataStore.data.map {
+            it[USER_EMAIL] ?: ""
+        }
+    }
+
+    suspend fun setUserEmail(userEmail: String) {
+        dataStore.edit {
+            it[USER_EMAIL] = userEmail
+        }
+    }
+
+    fun getUserId(): Flow<String> {
+        return dataStore.data.map {
+            it[USER_ID] ?: ""
+        }
+    }
+
+    suspend fun setUserId(userId: String) {
+        dataStore.edit {
+            it[USER_ID] = userId
+        }
+    }
+
+    companion object {
+        @Volatile
+        private var INSTANCE : SettingPreferences? = null
+
+        fun getInstance(dataStore: DataStore<Preferences>) : SettingPreferences {
+            return INSTANCE ?: synchronized(this) {
+                val instance = SettingPreferences(dataStore)
+                INSTANCE = instance
+                instance
+            }
         }
     }
 }

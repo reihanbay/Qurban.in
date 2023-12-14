@@ -44,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:hint="@string/account_name"
-            app:endIconMode="clear_text">
+            app:endIconMode="clear_text"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_name"
@@ -60,9 +61,10 @@
             style="@style/TextInputRounded"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:hint="@string/email"
-            app:endIconMode="clear_text">
+            app:endIconMode="clear_text"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
@@ -78,8 +80,9 @@
             style="@style/TextInputRounded"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:hint="@string/password"
+            app:errorEnabled="true"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -96,9 +99,10 @@
             style="@style/TextInputRounded"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:hint="@string/address"
-            app:endIconMode="clear_text">
+            app:endIconMode="clear_text"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_address"
@@ -115,12 +119,16 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:hint="@string/user_type"
             app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
-            app:boxCornerRadiusTopStart="8dp">
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/green_40"
+            app:endIconTint="@color/green_40"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/green_40">
 
             <AutoCompleteTextView
                 android:id="@+id/auto_text_type"
@@ -135,7 +143,7 @@
         <Button
             android:id="@+id/btn_register"
             style="@style/Button"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="28dp"
             android:text="@string/register" />
 
         <LinearLayout

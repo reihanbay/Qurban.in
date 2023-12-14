@@ -11,7 +11,6 @@ data class ProvinceResponseItem(
 	val id: String
 )
 
-
 data class RegencyResponse(
 
 	@field:SerializedName("province_id")
@@ -23,6 +22,7 @@ data class RegencyResponse(
 	@field:SerializedName("id")
 	val id: String
 )
+
 data class DistrictResponse(
 
 	@field:SerializedName("regency_id")

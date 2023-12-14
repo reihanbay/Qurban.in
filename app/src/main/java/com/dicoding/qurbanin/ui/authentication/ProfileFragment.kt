@@ -5,29 +5,34 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.qurbanin.R
+import com.dicoding.qurbanin.core.utils.datastore.SettingPreferences
+import com.dicoding.qurbanin.core.utils.datastore.datastore
+import com.dicoding.qurbanin.data.model.ListEventQurbanResponseItem
+import com.dicoding.qurbanin.databinding.FragmentProfileBinding
+import com.dicoding.qurbanin.ui.adapter.ListQurbanAdapter
+import com.dicoding.qurbanin.ui.list_qurban.ListQurbanFragment
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var profileQurbanViewModel: ProfileQurbanViewModel
+    private lateinit var settingPreferences: SettingPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+        // TODO: User ViewModel Factory
+        profileQurbanViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ProfileQurbanViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -35,26 +40,61 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvRegisteredQurban.layoutManager = layoutManager
+
+        val profileQurbanViewModel = ViewModelProvider(this,
+            ViewModelProvider.NewInstanceFactory()).get(ProfileQurbanViewModel::class.java)
+
+        settingPreferences = SettingPreferences.getInstance(requireContext().datastore)
+
+        lifecycleScope.launch {
+            val userName = settingPreferences.getUsername().first()
+            val userEmail = settingPreferences.getUserEmail().first()
+
+            binding.tvProfileName.text = "$userName"
+            binding.tvEmail.text = "$userEmail"
+
+            binding.ivLogoutButton.setOnClickListener {
+                logOutAccount()
             }
+        }
+
+        profileQurbanViewModel.registeredQurban.observe(viewLifecycleOwner) {
+            setRegisteredQurban(it)
+        }
     }
+
+    private fun setRegisteredQurban(registeredQurban: ArrayList<ListEventQurbanResponseItem>){
+        val adapter = ListQurbanAdapter(registeredQurban)
+        binding.rvRegisteredQurban.adapter = adapter
+
+        adapter.setOnItemClickCallback(object : ListQurbanAdapter.OnItemClickCallback{
+
+            override fun onItemClicked(data: ListEventQurbanResponseItem) {
+                val mBundle = Bundle()
+                mBundle.putString(ListQurbanFragment.EXTRA_ID_EVENT,data.IDEvent)
+                view?.findNavController()?.navigate(R.id.action_profileFragment_to_statusQurbanFragment,mBundle)
+            }
+        })
+
+    }
+
+    private fun logOutAccount(){
+        lifecycleScope.launch {
+            settingPreferences.setLoginSession(false)
+
+            findNavController().navigate(R.id.action_homeContainerFragment_to_loginFragment)
+        }
+    }
+
+
+
 }

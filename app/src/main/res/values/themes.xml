@@ -114,6 +114,9 @@
         <item name="boxCornerRadiusBottomStart">8dp</item>
         <item name="boxCornerRadiusTopEnd">8dp</item>
         <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxStrokeColor">@color/green_40</item>
+        <item name="cursorColor">@color/green_40</item>
+        <item name="hintTextColor">@color/green_40</item>
     </style>
 
 </resources>

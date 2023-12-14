@@ -12,11 +12,11 @@ interface LocationServices {
     suspend fun getProvince() : List<ProvinceResponseItem>
 
     @GET("regencies/{provinceId}.json")
-    suspend fun getRegency(@Path("provinceId") id : Int) : List<RegencyResponse>
+    suspend fun getRegency(@Path("provinceId") id : String) : List<RegencyResponse>
 
     @GET("districts/{regencyId}.json")
-    suspend fun getDistricts(@Path("regencyId") id : Int) : List<DistrictResponse>
+    suspend fun getDistricts(@Path("regencyId") id : String) : List<DistrictResponse>
 
     @GET("villages/{districtId}.json")
-    suspend fun getVillages(@Path("districtId") id: Int) : List<VillageResponse>
+    suspend fun getVillages(@Path("districtId") id: String) : List<VillageResponse>
 }

@@ -24,7 +24,7 @@ import com.dicoding.qurbanin.ui.adapter.EventStockAdapter
 
 class DetailFragment : Fragment() {
     private lateinit var bind : FragmentDetailBinding
-    private val factory : ViewModelFactory = ViewModelFactory.getInstance()
+    private val factory : ViewModelFactory = ViewModelFactory.getInstance(requireContext().applicationContext)
     private val viewModel : QurbanViewModel by viewModels {
         factory
     }

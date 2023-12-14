@@ -9,13 +9,18 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.dicoding.qurbanin.BuildConfig
 import com.dicoding.qurbanin.R
 import com.dicoding.qurbanin.core.utils.datastore.SettingPreferences
 import com.dicoding.qurbanin.core.utils.datastore.datastore
 import com.dicoding.qurbanin.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
-
 
 class LoginFragment : Fragment() {
 
@@ -23,13 +28,12 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var settingPreferences: SettingPreferences
+    private lateinit var databaseRef: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
         _binding = FragmentLoginBinding.inflate(inflater,container, false)
         return binding.root
     }
@@ -37,9 +41,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         firebaseAuth = FirebaseAuth.getInstance()
-
+        databaseRef = FirebaseDatabase.getInstance(BuildConfig.DATABASE_URL).reference
 
         settingPreferences = SettingPreferences.getInstance(requireContext().datastore)
 
@@ -69,17 +72,42 @@ class LoginFragment : Fragment() {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
 
-                    lifecycleScope.launch {
-                        settingPreferences.setLoginSession(true)
+                    val user = firebaseAuth.currentUser
+
+                    user?.uid?.let { uid ->
+                        databaseRef.child("Users").child(uid)
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    val userName = snapshot.child("Nama").value.toString()
+                                    val userEmail = user.email.toString()
+                                    val userId = user.uid.toString()
+
+                                    lifecycleScope.launch {
+                                        settingPreferences.setLoginSession(true)
+                                        settingPreferences.setUserName(userName)
+                                        settingPreferences.setUserEmail(userEmail)
+                                    }
+                                    findNavController().navigate(R.id.action_loginFragment_to_homeContainerFragment)
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    Toast.makeText(requireContext(),"getData failed", Toast.LENGTH_SHORT).show()
+                                }
+                            })
                     }
-
-                    findNavController().navigate(R.id.action_loginFragment_to_homeContainerFragment)
                 } else {
                     Toast.makeText(requireContext(), "Login Failed", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //to check user login session
+        if (firebaseAuth.currentUser != null) {
+            view?.findNavController()?.navigate(R.id.action_loginFragment_to_homeContainerFragment)
+        }
     }
 
     override fun onDestroy() {

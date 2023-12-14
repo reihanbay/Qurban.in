@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/statusQurbanFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -61,7 +61,10 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+        <!--suppress NavigationFile -->
+        <argument android:name="location"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/listQurbanFragment"
@@ -93,5 +96,9 @@
         android:id="@+id/homeContainerFragment"
         android:name="com.dicoding.qurbanin.ui.home.HomeContainerFragment"
         android:label="fragment_home_container"
-        tools:layout="@layout/fragment_home_container" />
+        tools:layout="@layout/fragment_home_container" >
+        <action
+            android:id="@+id/action_homeContainerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

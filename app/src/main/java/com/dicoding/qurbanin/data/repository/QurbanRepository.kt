@@ -4,15 +4,20 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
-import com.dicoding.qurbanin.data.model.EventQurbanResponse
-import com.google.firebase.database.DatabaseReference
 import com.dicoding.qurbanin.data.Result
+import com.dicoding.qurbanin.data.api.LocationServices
 import com.dicoding.qurbanin.data.model.DataEventItem
+import com.dicoding.qurbanin.data.model.DistrictResponse
+import com.dicoding.qurbanin.data.model.EventQurbanResponse
+import com.dicoding.qurbanin.data.model.ProvinceResponseItem
+import com.dicoding.qurbanin.data.model.RegencyResponse
 import com.dicoding.qurbanin.data.model.SoldByItem
 import com.dicoding.qurbanin.data.model.StockDataItem
 import com.dicoding.qurbanin.data.model.StockDataResponse
+import com.dicoding.qurbanin.data.model.VillageResponse
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +28,10 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class QurbanRepository private constructor(private val dbReference: DatabaseReference) {
+class QurbanRepository private constructor( private val dbReference: DatabaseReference,
+                                            private val locationService: LocationServices,
+) {
+    private val TAG = QurbanRepository::class.java.simpleName
     suspend fun getListEvent() : Flow<Result<List<EventQurbanResponse>>> = callbackFlow {
             val dataList = mutableListOf<EventQurbanResponse>()
             trySendBlocking(Result.Loading)
@@ -108,14 +116,62 @@ class QurbanRepository private constructor(private val dbReference: DatabaseRefe
         })
     }
 
+    fun getProvinces(): LiveData<Result<List<ProvinceResponseItem>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = locationService.getProvince()
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error get provinces: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun getRegencies(id: String): LiveData<Result<List<RegencyResponse>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = locationService.getRegency(id)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error get regencies: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun getDistricts(id: String): LiveData<Result<List<DistrictResponse>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = locationService.getDistricts(id)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error get districts: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun getVillages(id: String): LiveData<Result<List<VillageResponse>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = locationService.getVillages(id)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error get provinces: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
     companion object {
         @Volatile
         private var instance : QurbanRepository? = null
         fun getInstance(
-            dbRef: DatabaseReference
+            dbRef: DatabaseReference,
+            locationService: LocationServices,
         ) : QurbanRepository =
             instance ?: synchronized(this) {
-                instance ?: QurbanRepository(dbRef)
+                instance ?: QurbanRepository(
+                    dbRef,
+                    locationService,
+                )
             }.also { instance = it }
     }
 }
