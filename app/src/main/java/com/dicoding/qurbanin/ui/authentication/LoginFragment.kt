@@ -102,14 +102,6 @@ class LoginFragment : Fragment() {
             }
     }
 
-    override fun onStart() {
-        super.onStart()
-        //to check user login session
-        if (firebaseAuth.currentUser != null) {
-            view?.findNavController()?.navigate(R.id.action_loginFragment_to_homeContainerFragment)
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

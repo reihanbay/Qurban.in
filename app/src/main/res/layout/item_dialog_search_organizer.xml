@@ -1,218 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:padding="12dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:outlineSpotShadowColor="#26373737"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:cardMaxElevation="4dp"
+    <TextView
+        android:id="@+id/text_enter_current_location"
+        style="@style/TextBody.Bold.BodyLarge"
+        android:layout_width="0dp"
+        android:paddingBottom="24dp"
+        android:text="@string/enter_current_location"
+        android:textColor="@color/green_40"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_view_organizer"
-        tools:targetApi="p">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/text_province"
+        style="@style/TextBody.Medium.LabelMedium"
+        android:text="@string/province"
+        android:textColor="@color/green_40"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_enter_current_location" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_province"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/green_40"
+        app:cursorColor="@color/green_40"
+        app:endIconTint="@color/green_40"
+        app:errorEnabled="true"
+        app:hintAnimationEnabled="false"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_province">
+
+        <AutoCompleteTextView
+            android:id="@+id/auto_text_province"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="12dp">
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="@string/ex_province"
+            android:textSize="12sp"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/text_enter_current_location"
-                style="@style/TextBody.Bold.BodyLarge"
-                android:layout_width="0dp"
-                android:paddingBottom="24dp"
-                android:text="@string/enter_current_location"
-                android:textColor="@color/green_40"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/text_regency"
+        style="@style/TextBody.Medium.LabelMedium"
+        android:layout_marginStart="5dp"
+        android:text="@string/regency"
+        android:textColor="@color/green_40"
+        app:layout_constraintBottom_toBottomOf="@id/text_province"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/text_province" />
 
-            <TextView
-                android:id="@+id/text_province"
-                style="@style/TextBody.Medium.LabelMedium"
-                android:text="@string/province"
-                android:textColor="@color/green_40"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_enter_current_location" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_regency"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/green_40"
+        app:cursorColor="@color/green_40"
+        app:endIconTint="@color/green_40"
+        app:errorEnabled="true"
+        app:hintAnimationEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/text_regency">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_province"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxStrokeColor="@color/green_40"
-                app:cursorColor="@color/green_40"
-                app:endIconTint="@color/green_40"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="false"
-                app:layout_constraintEnd_toStartOf="@id/guideline"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_province">
+        <AutoCompleteTextView
+            android:id="@+id/auto_text_regency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="@string/ex_regency"
+            android:textSize="12sp"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <AutoCompleteTextView
-                    android:id="@+id/auto_text_province"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text="@string/ex_province"
-                    android:textSize="12sp"
-                    tools:ignore="LabelFor" />
-            </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/text_district"
+        style="@style/TextBody.Medium.LabelMedium"
+        android:layout_marginTop="6dp"
+        android:text="@string/district"
+        android:textColor="@color/green_40"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_province" />
 
-            <TextView
-                android:id="@+id/text_regency"
-                style="@style/TextBody.Medium.LabelMedium"
-                android:layout_marginStart="5dp"
-                android:text="@string/regency"
-                android:textColor="@color/green_40"
-                app:layout_constraintBottom_toBottomOf="@id/text_province"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toTopOf="@id/text_province" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_district"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="24dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/green_40"
+        app:cursorColor="@color/green_40"
+        app:endIconTint="@color/green_40"
+        app:errorEnabled="true"
+        app:hintAnimationEnabled="false"
+        app:layout_constraintBottom_toTopOf="@id/btn_set_or_search"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_district">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_regency"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxStrokeColor="@color/green_40"
-                app:cursorColor="@color/green_40"
-                app:endIconTint="@color/green_40"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/text_regency">
+        <AutoCompleteTextView
+            android:id="@+id/auto_text_district"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="@string/ex_district"
+            android:textSize="12sp"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <AutoCompleteTextView
-                    android:id="@+id/auto_text_regency"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text="@string/ex_regency"
-                    android:textSize="12sp"
-                    tools:ignore="LabelFor" />
-            </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/text_village"
+        style="@style/TextBody.Medium.LabelMedium"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="6dp"
+        android:text="@string/village"
+        android:textColor="@color/green_40"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/text_input_regency" />
 
-            <TextView
-                android:id="@+id/text_district"
-                style="@style/TextBody.Medium.LabelMedium"
-                android:layout_marginTop="6dp"
-                android:text="@string/district"
-                android:textColor="@color/green_40"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_input_province" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_village"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="24dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/green_40"
+        app:cursorColor="@color/green_40"
+        app:endIconTint="@color/green_40"
+        app:errorEnabled="true"
+        app:hintAnimationEnabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/btn_set_or_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/text_village">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_district"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="24dp"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxStrokeColor="@color/green_40"
-                app:cursorColor="@color/green_40"
-                app:endIconTint="@color/green_40"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="false"
-                app:layout_constraintBottom_toTopOf="@id/btn_set_or_search"
-                app:layout_constraintEnd_toStartOf="@id/guideline"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_district">
+        <AutoCompleteTextView
+            android:id="@+id/auto_text_village"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="@string/ex_village"
+            android:textSize="12sp"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <AutoCompleteTextView
-                    android:id="@+id/auto_text_district"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text="@string/ex_district"
-                    android:textSize="12sp"
-                    tools:ignore="LabelFor" />
-            </com.google.android.material.textfield.TextInputLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-            <TextView
-                android:id="@+id/text_village"
-                style="@style/TextBody.Medium.LabelMedium"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="6dp"
-                android:text="@string/village"
-                android:textColor="@color/green_40"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/text_input_regency" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_set_or_search"
+        style="@style/Button"
+        android:text="@string/lets_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_village"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="24dp"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxStrokeColor="@color/green_40"
-                app:cursorColor="@color/green_40"
-                app:endIconTint="@color/green_40"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="false"
-                app:layout_constraintBottom_toTopOf="@+id/btn_set_or_search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/text_village">
-
-                <AutoCompleteTextView
-                    android:id="@+id/auto_text_village"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text="@string/ex_village"
-                    android:textSize="12sp"
-                    tools:ignore="LabelFor" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_set_or_search"
-                style="@style/Button"
-                android:text="@string/lets_search"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
