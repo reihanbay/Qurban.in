@@ -1,7 +1,6 @@
 package com.dicoding.qurbanin.ui.authentication
 
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -84,10 +83,12 @@ class LoginFragment : Fragment() {
                             .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     val userName = snapshot.child("Nama").value.toString()
+                                    val userEmail = user.email.toString()
 
                                     lifecycleScope.launch {
                                         settingPreferences.setLoginSession(true)
                                         settingPreferences.setUserName(userName)
+                                        settingPreferences.setUserEmail(userEmail)
                                     }
                                     findNavController().navigate(R.id.action_loginFragment_to_homeContainerFragment)
                                 }

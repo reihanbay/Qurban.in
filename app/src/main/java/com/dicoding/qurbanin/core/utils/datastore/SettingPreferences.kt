@@ -30,6 +30,9 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
     private val LOCATION = stringPreferencesKey("location")
 
     private val USER_NAME = stringPreferencesKey("user_name")
+    private val USER_EMAIL = stringPreferencesKey("user_email")
+    private val USER_ID = stringPreferencesKey("user_id")
+
 
     fun isLogin() : Flow<Boolean> {
         return dataStore.data.map {
@@ -72,6 +75,30 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
     suspend fun setUserName(userName: String) {
         dataStore.edit {
             it[USER_NAME] = userName
+        }
+    }
+
+    fun getUserEmail(): Flow<String> {
+        return dataStore.data.map {
+            it[USER_EMAIL] ?: ""
+        }
+    }
+
+    suspend fun setUserEmail(userEmail: String) {
+        dataStore.edit {
+            it[USER_EMAIL] = userEmail
+        }
+    }
+
+    fun getUserId(): Flow<String> {
+        return dataStore.data.map {
+            it[USER_ID] ?: ""
+        }
+    }
+
+    suspend fun setUserId(userId: String) {
+        dataStore.edit {
+            it[USER_ID] = userId
         }
     }
 }
