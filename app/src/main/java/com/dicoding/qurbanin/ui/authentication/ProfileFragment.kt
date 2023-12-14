@@ -6,21 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.qurbanin.R
+import com.dicoding.qurbanin.core.utils.datastore.SettingPreferences
+import com.dicoding.qurbanin.core.utils.datastore.datastore
 import com.dicoding.qurbanin.data.model.ListEventQurbanResponseItem
-import com.dicoding.qurbanin.databinding.FragmentListQurbanBinding
 import com.dicoding.qurbanin.databinding.FragmentProfileBinding
 import com.dicoding.qurbanin.ui.adapter.ListQurbanAdapter
 import com.dicoding.qurbanin.ui.list_qurban.ListQurbanFragment
-import com.dicoding.qurbanin.ui.list_qurban.ListQurbanViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var profileQurbanViewModel: ProfileQurbanViewModel
+    private lateinit var settingPreferences: SettingPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +53,20 @@ class ProfileFragment : Fragment() {
         val profileQurbanViewModel = ViewModelProvider(this,
             ViewModelProvider.NewInstanceFactory()).get(ProfileQurbanViewModel::class.java)
 
+        settingPreferences = SettingPreferences.getInstance(requireContext().datastore)
+
+        lifecycleScope.launch {
+            val userName = settingPreferences.getUsername().first()
+            val userEmail = settingPreferences.getUserEmail().first()
+
+            binding.tvProfileName.text = "$userName"
+            binding.tvEmail.text = "$userEmail"
+
+            binding.ivLogoutButton.setOnClickListener {
+                logOutAccount()
+            }
+        }
+
         profileQurbanViewModel.registeredQurban.observe(viewLifecycleOwner) {
             setRegisteredQurban(it)
         }
@@ -65,6 +85,14 @@ class ProfileFragment : Fragment() {
             }
         })
 
+    }
+
+    private fun logOutAccount(){
+        lifecycleScope.launch {
+            settingPreferences.setLoginSession(false)
+
+            findNavController().navigate(R.id.action_homeContainerFragment_to_loginFragment)
+        }
     }
 
 
