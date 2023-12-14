@@ -26,8 +26,11 @@ data class ListEventQurbanResponseItem(
 	val Location: String,
 
 	@field:SerializedName("Name")
-	val Name: String
+	val Name: String,
+
+	@field:SerializedName("StatusEvent")
+	val StatusEvent: String
 ) {
-	constructor() : this("","","","","","","","","")
+	constructor() : this("","","","","","","","","","")
 }
 
