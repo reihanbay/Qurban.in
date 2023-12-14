@@ -1,181 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:scrollbarSize="0dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="24sp"
-    tools:context=".ui.detail.DetailFragment">
-
-    <TextView
-        android:id="@+id/tv_headline_organizer"
-        style="@style/TextBody.Medium.HeadlineSmall"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Qurban Masjid Baba Alun" />
+        android:id="@+id/container"
+        android:clipToPadding="false"
+        android:padding="24sp"
+        tools:context=".ui.detail.DetailFragment">
 
-    <TextView
-        android:id="@+id/tv_address"
-        style="@style/TextBody"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_headline_organizer"
-        tools:text="Qurban Masjid Baba Alun" />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/back_to_previous_page"
+            app:srcCompat="@drawable/ic_arrow_bgcircle" />
+        <TextView
+            android:id="@+id/tv_headline_organizer"
+            style="@style/TextBody.Medium.HeadlineSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_back"
+            tools:text="Qurban Masjid Baba Alun" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            style="@style/TextBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_headline_organizer"
+            tools:text="Qurban Masjid Baba Alun" />
 
 
-    <ImageView
-        android:id="@+id/iv_event_organizer"
-        android:layout_width="match_parent"
-        android:layout_height="175dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/bg_rounded_8dp"
-        android:clipToOutline="true"
-        android:maxHeight="175dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/dummy_mosque"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_address" />
+        <ImageView
+            android:id="@+id/iv_event_organizer"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_rounded_8dp"
+            android:maxHeight="175dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dummy_mosque"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_address"
+            android:contentDescription="ImageEventOrganize"
+            tools:ignore="HardcodedText" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/tv_registered_label"
-        style="@style/TextBody.Medium.BodyLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_event_organizer"
-        android:text="@string/registered"/>
-    
-    <ImageView
-        android:id="@+id/iv_ic_goat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_registered_label"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/ic_goat"/>
-    <TextView
-        android:id="@+id/tv_count_pieces_sohibul"
-        style="@style/TextBody.Medium.BodyLarge"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/grey_40"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintStart_toEndOf="@id/iv_ic_goat"
-        app:layout_constraintTop_toTopOf="@id/iv_ic_goat"
-        app:layout_constraintBottom_toBottomOf="@id/iv_ic_goat"
-        android:layout_marginStart="12dp"
-        tools:text="5/10 Pekurban"/>
+        <TextView
+            android:id="@+id/tv_registered_label"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_event_organizer"
+            android:text="@string/registered"/>
 
-    <ImageView
-        android:id="@+id/iv_ic_cow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_registered_label"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/ic_cow"/>
-    <TextView
-        android:id="@+id/tv_count_group_sohibul"
-        style="@style/TextBody.Medium.BodyLarge"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/grey_40"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/iv_ic_cow"
-        app:layout_constraintTop_toTopOf="@id/iv_ic_cow"
-        app:layout_constraintBottom_toBottomOf="@id/iv_ic_cow"
-        android:layout_marginStart="12dp"
-        tools:text="5/10 Pekurban"/>
+        <ImageView
+            android:id="@+id/iv_ic_goat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_registered_label"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_goat"
+            android:contentDescription="@string/cd_icon_goat" />
+        <TextView
+            android:id="@+id/tv_count_pieces_sohibul"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_40"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toEndOf="@id/iv_ic_goat"
+            app:layout_constraintTop_toTopOf="@id/iv_ic_goat"
+            app:layout_constraintBottom_toBottomOf="@id/iv_ic_goat"
+            android:layout_marginStart="12dp"
+            tools:text="5/10 Pekurban"/>
 
-    <TextView
-        android:id="@+id/tv_execution_label"
-        style="@style/TextBody.Medium.BodyLarge"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_ic_goat"
-        android:text="@string/execution"/>
+        <ImageView
+            android:id="@+id/iv_ic_cow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/tv_registered_label"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_cow"
+            android:contentDescription="@string/cd_icon_cow" />
+        <TextView
+            android:id="@+id/tv_count_group_sohibul"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_ic_cow"
+            app:layout_constraintTop_toTopOf="@id/iv_ic_cow"
+            app:layout_constraintBottom_toBottomOf="@id/iv_ic_cow"
+            android:layout_marginStart="12dp"
+            tools:text="5/10 Pekurban"/>
 
-    <TextView
-        android:id="@+id/tv_execution"
-        style="@style/TextBody.BodyLarge"
-        android:textColor="@color/grey_40"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_execution_label"
-        android:text="@string/execution"/>
+        <TextView
+            android:id="@+id/tv_execution_label"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_ic_goat"
+            android:text="@string/execution"/>
 
-    <TextView
-        android:id="@+id/tv_deliver_label"
-        style="@style/TextBody.Medium.BodyLarge"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/iv_ic_goat"
-        android:text="@string/deliver"/>
+        <TextView
+            android:id="@+id/tv_execution"
+            style="@style/TextBody.BodyLarge"
+            android:textColor="@color/grey_40"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_execution_label"
+            android:text="@string/execution"/>
 
-    <TextView
-        android:id="@+id/tv_deliver"
-        style="@style/TextBody.BodyLarge"
-        android:textColor="@color/grey_40"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_execution_label"
-        android:text="@string/execution"/>
+        <TextView
+            android:id="@+id/tv_deliver_label"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/iv_ic_goat"
+            android:text="@string/deliver"/>
 
-    <TextView
-        android:id="@+id/tv_registration_label"
-        style="@style/TextBody.Medium.BodyLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_execution"
-        android:text="@string/stock"/>
+        <TextView
+            android:id="@+id/tv_deliver"
+            style="@style/TextBody.BodyLarge"
+            android:textColor="@color/grey_40"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/tv_execution_label"
+            android:text="@string/execution"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        tools:listitem="@layout/item_stock_qurban"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_registration_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        <TextView
+            android:id="@+id/tv_registration_label"
+            style="@style/TextBody.Medium.BodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_execution"
+            android:text="@string/stock"/>
 
-    <com.google.android.material.button.MaterialButton
-        style="@style/Button"
-        android:text="@string/register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_stock"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginTop="12dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="6dp"
+            tools:listitem="@layout/item_stock_qurban"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_registration_label"
+            app:layout_constraintBottom_toTopOf="@id/btn_register_event"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register_event"
+            style="@style/Button"
+            android:text="@string/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

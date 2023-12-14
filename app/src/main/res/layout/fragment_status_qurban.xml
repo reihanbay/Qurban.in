@@ -8,7 +8,15 @@
     android:clipToPadding="false"
     android:padding="24sp"
     tools:context=".ui.detail.StatusQurbanFragment">
-
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/back_to_previous_page"
+        app:srcCompat="@drawable/ic_arrow_bgcircle" />
     <TextView
         android:id="@+id/tv_headline_organizer"
         style="@style/TextBody.Medium.HeadlineSmall"
@@ -17,7 +25,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_back"
         tools:text="Qurban Masjid Baba Alun" />
 
     <TextView
@@ -174,20 +182,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/item_stock_qurban"
         android:layout_marginTop="12dp"
+        android:paddingHorizontal="6dp"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_stock_qurban"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_registration_label"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <com.google.android.material.button.MaterialButton
-        style="@style/Button"
-        android:text="@string/register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

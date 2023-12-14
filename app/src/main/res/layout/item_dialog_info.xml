@@ -13,7 +13,9 @@
         android:id="@+id/iv_illus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/illus_farm"/>
+        android:src="@drawable/illus_farm"
+        android:contentDescription="Farm"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -38,8 +40,9 @@
 
     <com.google.android.material.button.MaterialButton
         style="@style/Button"
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        tools:text="Daftar Qurban"/>
+        android:text="@string/register_qurban"/>
 </androidx.appcompat.widget.LinearLayoutCompat>

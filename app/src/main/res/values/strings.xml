@@ -7,7 +7,7 @@
     <string name="register">Daftar</string>
     <string name="status_qurban">Status Qurban</string>
     <string name="text_lets_pay">Ayo Bayar!</string>
-    <string name="text_note_pricing">Rp.%s / Pekurban</string>
+    <string name="text_note_pricing">%s / Pekurban</string>
     <string name="rekening">Rekening %s</string>
     <string name="qurban_payment">Pembayaran Qurban</string>
     <string name="summary_payment">Ringkasan Pembayaran</string>
@@ -71,6 +71,11 @@
     <string name="name_is_not_valid">Nama hanya berisi huruf!</string>
     <string name="email_is_not_valid">Masukkan email yang sesuai!</string>
     <string name="password_length_is_not_valid">Min. 8 karakter</string>
+    <string name="textStock">%1$s / %2$s</string>
+    <string name="textDescDialogRegister">Anda akan mendaftar %s dengan tagihan %s</string>
+    <string name="register_qurban">Daftar Qurban</string>
+    <string name="cd_icon_goat">icon_goat</string>
+    <string name="cd_icon_cow">cd icon cow</string>
     <string-array name="user_type">
         <item>Warga</item>
         <item>Penyelenggara</item>
