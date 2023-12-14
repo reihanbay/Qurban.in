@@ -3,12 +3,13 @@ package com.dicoding.qurbanin.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicoding.qurbanin.core.utils.datastore.SettingPreferences
+import com.dicoding.qurbanin.data.repository.LocationRepository
 import com.dicoding.qurbanin.data.repository.QurbanRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val preferences: SettingPreferences,
-    private val repository: QurbanRepository,
+    private val repository: LocationRepository,
 ) : ViewModel() {
 
     fun getUserName() = preferences.getUsername()

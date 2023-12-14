@@ -29,9 +29,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class QurbanRepository private constructor( private val dbReference: DatabaseReference,
-                                            private val locationService: LocationServices,
 ) {
-    private val TAG = QurbanRepository::class.java.simpleName
     suspend fun getListEvent() : Flow<Result<List<EventQurbanResponse>>> = callbackFlow {
             val dataList = mutableListOf<EventQurbanResponse>()
             trySendBlocking(Result.Loading)
@@ -116,61 +114,15 @@ class QurbanRepository private constructor( private val dbReference: DatabaseRef
         })
     }
 
-    fun getProvinces(): LiveData<Result<List<ProvinceResponseItem>>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = locationService.getProvince()
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            Log.e(TAG, "Error get provinces: ${e.message.toString()}")
-            emit(Result.Error(e.message.toString()))
-        }
-    }
-
-    fun getRegencies(id: String): LiveData<Result<List<RegencyResponse>>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = locationService.getRegency(id)
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            Log.e(TAG, "Error get regencies: ${e.message.toString()}")
-            emit(Result.Error(e.message.toString()))
-        }
-    }
-
-    fun getDistricts(id: String): LiveData<Result<List<DistrictResponse>>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = locationService.getDistricts(id)
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            Log.e(TAG, "Error get districts: ${e.message.toString()}")
-            emit(Result.Error(e.message.toString()))
-        }
-    }
-
-    fun getVillages(id: String): LiveData<Result<List<VillageResponse>>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = locationService.getVillages(id)
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            Log.e(TAG, "Error get provinces: ${e.message.toString()}")
-            emit(Result.Error(e.message.toString()))
-        }
-    }
-
     companion object {
         @Volatile
         private var instance : QurbanRepository? = null
         fun getInstance(
             dbRef: DatabaseReference,
-            locationService: LocationServices,
         ) : QurbanRepository =
             instance ?: synchronized(this) {
                 instance ?: QurbanRepository(
                     dbRef,
-                    locationService,
                 )
             }.also { instance = it }
     }
