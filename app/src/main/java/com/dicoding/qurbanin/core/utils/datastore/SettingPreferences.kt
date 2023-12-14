@@ -1,6 +1,7 @@
 package com.dicoding.qurbanin.core.utils.datastore
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -13,6 +14,8 @@ import kotlinx.coroutines.flow.map
 
 val Context.datastore : DataStore<Preferences> by  preferencesDataStore("settings")
 class SettingPreferences private constructor(private val dataStore: DataStore<Preferences>){
+    private val TAG = SettingPreferences::class.java.simpleName
+
     companion object {
         @Volatile
         private var INSTANCE : SettingPreferences? = null
@@ -52,6 +55,8 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
     suspend fun setLocation(location : String) {
         dataStore.edit {
             it[LOCATION] = location
+
+            Log.i(TAG, "Location on Class SettingPreferences: $location")
         }
     }
 

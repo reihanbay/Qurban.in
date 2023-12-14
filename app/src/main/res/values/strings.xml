@@ -26,6 +26,7 @@
     <string name="iv_description_logo">Gambar Aplikasi Qurban.in</string>
     <string name="iv_description_logout">Gambar Logout Akun</string>
     <string name="illus_register">Gambar ilustrasi daftar</string>
+    <string name="illus_login">Gambar ilustrasi masuk</string>
     <string name="accout_register">Daftar akun</string>
     <string name="email">Email</string>
     <string name="password">Kata Sandi</string>
@@ -39,13 +40,13 @@
     <string name="dummy_user_greeting">Selamat Pagi, Reihan</string>
     <string name="dummy_user_location">Berkoh, Purwokerto Selatan, Banyumas</string>
     <string name="province">Provinsi</string>
-    <string name="city">Kabupaten</string>
+    <string name="regency">Kabupaten</string>
     <string name="district">Kecamatan</string>
-    <string name="sub_district">Kelurahan/Desa</string>
+    <string name="village">Kelurahan/Desa</string>
     <string name="ex_province">ex: Jawa Tengah</string>
-    <string name="ex_city">ex: Banyumas</string>
+    <string name="ex_regency">ex: Banyumas</string>
     <string name="ex_district">ex: Purwokerto</string>
-    <string name="ex_sub_district">ex: Berkoh</string>
+    <string name="ex_village">ex: Berkoh</string>
     <string name="lets_search">Ayo cari!</string>
     <string name="set_location">Atur Lokasi</string>
     <string name="dummy_organizer_name">Qurban Masjid Al-Ikhlas</string>
@@ -66,6 +67,7 @@
     <string name="home">Beranda</string>
     <string name="profile">Profil</string>
     <string name="field_required">Isi terlebih dahulu!</string>
+    <string name="select_item_required">Pilih terlebih dahulu!</string>
     <string name="name_is_not_valid">Nama hanya berisi huruf!</string>
     <string name="email_is_not_valid">Masukkan email yang sesuai!</string>
     <string name="password_length_is_not_valid">Min. 8 karakter</string>

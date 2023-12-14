@@ -12,7 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.dicoding.qurbanin.R
 import com.dicoding.qurbanin.databinding.FragmentHomeContainerBinding
 import com.dicoding.qurbanin.ui.authentication.ProfileFragment
-import com.dicoding.qurbanin.ui.home.adapter.MainViewPagerAdapter
+import com.dicoding.qurbanin.ui.adapter.MainViewPagerAdapter
 import com.dicoding.qurbanin.ui.list_qurban.ListQurbanFragment
 import com.google.android.material.navigation.NavigationBarView
 

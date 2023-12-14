@@ -120,7 +120,9 @@
             app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
-            app:boxCornerRadiusTopStart="8dp">
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="@color/green_40"
+            app:hintTextColor="@color/green_40">
 
             <AutoCompleteTextView
                 android:id="@+id/auto_text_type"

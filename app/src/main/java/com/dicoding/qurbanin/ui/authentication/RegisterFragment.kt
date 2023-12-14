@@ -23,6 +23,7 @@ import com.google.firebase.ktx.Firebase
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding
+    private val TAG = RegisterFragment::class.java.simpleName
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
@@ -57,7 +58,7 @@ class RegisterFragment : Fragment() {
         var type = ""
         binding?.autoTextType?.setOnItemClickListener { adapterView, _, position, _ ->
             type = adapterView.getItemAtPosition(position).toString()
-            Log.i(REGISTER_TAG, "Nilai type: $type")
+            Log.i(TAG, "Nilai type: $type")
         }
 
         binding?.btnRegister?.setOnClickListener { buttonView ->
@@ -86,13 +87,13 @@ class RegisterFragment : Fragment() {
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(requireActivity()) { task ->
                             if (task.isSuccessful) {
-                                Log.i(REGISTER_TAG, "createUserWithEmail: success")
+                                Log.i(TAG, "createUserWithEmail: success")
                                 val user = firebaseAuth.currentUser
                                 saveToDatabase(user?.uid, name, address, type)
                                 buttonView.findNavController()
                                     .navigate(R.id.action_registerFragment_to_loginFragment)
                             } else {
-                                Log.w(REGISTER_TAG, "createUserWithEmail: failed")
+                                Log.w(TAG, "createUserWithEmail: failed")
                                 Toast.makeText(
                                     requireActivity(),
                                     "Register: failed",
@@ -135,7 +136,6 @@ class RegisterFragment : Fragment() {
     }
 
     companion object {
-        private const val REGISTER_TAG = "REGISTER_TAG"
         private const val USERS_PATH = "Users"
         private const val DATABASE_URL = BuildConfig.DATABASE_URL
     }
