@@ -1,4 +1,4 @@
-package com.dicoding.qurbanin.core.utils
+package com.dicoding.qurbanin.core.utils.utility
 
 import java.util.Calendar
 

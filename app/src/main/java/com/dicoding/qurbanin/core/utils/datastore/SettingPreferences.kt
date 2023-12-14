@@ -16,22 +16,8 @@ val Context.datastore : DataStore<Preferences> by  preferencesDataStore("setting
 class SettingPreferences private constructor(private val dataStore: DataStore<Preferences>){
     private val TAG = SettingPreferences::class.java.simpleName
 
-    companion object {
-        @Volatile
-        private var INSTANCE : SettingPreferences? = null
-
-        fun getInstance(dataStore: DataStore<Preferences>) : SettingPreferences {
-            return INSTANCE ?: synchronized(this) {
-                val instance = SettingPreferences(dataStore)
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
-
     private val AUTH_SESSION = booleanPreferencesKey("is_login")
     private val LOCATION = stringPreferencesKey("location")
-
     private val USER_NAME = stringPreferencesKey("user_name")
 
     fun isLogin() : Flow<Boolean> {
@@ -45,7 +31,6 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
             it[AUTH_SESSION] = isLogin
         }
     }
-
 
     fun getLocation() : Flow<String> {
         return dataStore.data.map {
@@ -77,6 +62,19 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
     suspend fun setUserName(userName: String) {
         dataStore.edit {
             it[USER_NAME] = userName
+        }
+    }
+
+    companion object {
+        @Volatile
+        private var INSTANCE : SettingPreferences? = null
+
+        fun getInstance(dataStore: DataStore<Preferences>) : SettingPreferences {
+            return INSTANCE ?: synchronized(this) {
+                val instance = SettingPreferences(dataStore)
+                INSTANCE = instance
+                instance
+            }
         }
     }
 }

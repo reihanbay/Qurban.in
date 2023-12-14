@@ -68,37 +68,57 @@ class RegisterFragment : Fragment() {
             val address = binding?.etAddress?.text.toString().trim()
 
             when {
-                name.isEmpty() -> binding?.etName?.error = getString(R.string.field_required)
-                !isValidName(name) -> binding?.etName?.error = getString(R.string.name_is_not_valid)
+                name.isEmpty() -> binding?.textInputName?.error = getString(R.string.field_required)
+                !isValidName(name) -> {
+                    binding?.textInputName?.error = getString(R.string.name_is_not_valid)
+                }
 
-                email.isEmpty() -> binding?.etEmail?.error = getString(R.string.field_required)
-                !isValidEmail(email) ->
-                    binding?.etEmail?.error = getString(R.string.email_is_not_valid)
-
-                password.isEmpty() -> binding?.etPassword?.error =
-                    getString(R.string.field_required)
-                !isValidPassword(password) ->
-                    binding?.etPassword?.error = getString(R.string.password_length_is_not_valid)
-
-                address.isEmpty() -> binding?.etAddress?.error = getString(R.string.field_required)
-                type.isEmpty() -> binding?.autoTextType?.error = getString(R.string.field_required)
+                email.isEmpty() -> {
+                    binding?.textInputEmail?.error = getString(R.string.field_required)
+                    binding?.textInputName?.error = null
+                }
+                !isValidEmail(email) -> {
+                    binding?.textInputEmail?.error = getString(R.string.email_is_not_valid)
+                    binding?.textInputName?.error = null
+                }
+                password.isEmpty() -> {
+                    binding?.textInputPassword?.error = getString(R.string.field_required)
+                    binding?.textInputEmail?.error = null
+                }
+                !isValidPassword(password) -> {
+                    binding?.textInputPassword?.error =
+                        getString(R.string.password_length_is_not_valid)
+                }
+                address.isEmpty() -> {
+                    binding?.textInputAddress?.error = getString(R.string.field_required)
+                    binding?.textInputPassword?.error = null
+                }
+                type.isEmpty() -> {
+                    binding?.textInputType?.error = getString(R.string.field_required)
+                    binding?.textInputAddress?.error = null
+                }
 
                 else -> {
+                    binding?.textInputType?.error = null
+
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(requireActivity()) { task ->
                             if (task.isSuccessful) {
-                                Log.i(TAG, "createUserWithEmail: success")
                                 val user = firebaseAuth.currentUser
                                 saveToDatabase(user?.uid, name, address, type)
+
+                                showToast("Register berhasil!")
+
                                 buttonView.findNavController()
                                     .navigate(R.id.action_registerFragment_to_loginFragment)
+
+                                Log.i(TAG, "createUserWithEmail: success")
                             } else {
-                                Log.w(TAG, "createUserWithEmail: failed")
-                                Toast.makeText(
-                                    requireActivity(),
-                                    "Register: failed",
-                                    Toast.LENGTH_SHORT,
-                                ).show()
+                                val message = checkString(task.exception!!)
+
+                                showToast(message)
+
+                                Log.e(TAG, "createUserWithEmail: ${task.exception}")
                             }
                         }
                 }
@@ -107,6 +127,14 @@ class RegisterFragment : Fragment() {
 
         binding?.textLogin?.setOnClickListener {
             it.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+    }
+
+    private fun checkString(exception: Exception): String {
+        return if (exception.message!!.contains("already in use")) {
+            getString(R.string.email_already_used)
+        } else {
+            getString(R.string.register_failed)
         }
     }
 
@@ -129,6 +157,10 @@ class RegisterFragment : Fragment() {
     private fun isValidPassword(password: String) = password.length >= 8
 
     private fun isValidEmail(email: String) = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+
+    private fun showToast(msg: String) {
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+    }
 
     override fun onDetach() {
         super.onDetach()

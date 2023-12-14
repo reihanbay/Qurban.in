@@ -6,7 +6,28 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.dicoding.qurbanin.R
+import com.dicoding.qurbanin.core.utils.utility.StringHelper
+import com.dicoding.qurbanin.data.model.DistrictResponse
+import com.dicoding.qurbanin.data.model.ProvinceResponseItem
+import com.dicoding.qurbanin.data.model.RegencyResponse
+import com.dicoding.qurbanin.data.Result
+import com.dicoding.qurbanin.databinding.FragmentHomeBinding
+import com.dicoding.qurbanin.ui.ViewModelFactory
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -51,8 +72,13 @@ class HomeFragment : Fragment() {
 
         viewModelFactory = ViewModelFactory.getInstance(requireContext().applicationContext)
 
-        val greeting = StringHelper.greeting("Sukma") //change from datastore
-        binding?.tvGreeting?.text = greeting
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModel.getUserName().collect { name ->
+                withContext(Dispatchers.Main) {
+                    binding?.tvGreeting?.text = StringHelper.greeting(name)
+                }
+            }
+        }
 
         var userLocation = ""
 

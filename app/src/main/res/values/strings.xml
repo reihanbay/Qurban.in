@@ -66,6 +66,8 @@
     <string name="label_event_time_take">Pengambilan</string>
     <string name="home">Beranda</string>
     <string name="profile">Profil</string>
+    <string name="email_already_used">Email sudah digunakan!</string>
+    <string name="register_failed">Register gagal! Coba lagi nanti</string>
     <string name="field_required">Isi terlebih dahulu!</string>
     <string name="select_item_required">Pilih terlebih dahulu!</string>
     <string name="name_is_not_valid">Nama hanya berisi huruf!</string>
