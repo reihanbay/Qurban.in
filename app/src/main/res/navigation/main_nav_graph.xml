@@ -92,5 +92,8 @@
         <action
             android:id="@+id/action_homeContainerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeContainerFragment_to_StatusQurbanFragment"
+            app:destination="@id/statusQurbanFragment" />
     </fragment>
 </navigation>
