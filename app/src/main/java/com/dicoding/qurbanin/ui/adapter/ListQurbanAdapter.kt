@@ -8,7 +8,7 @@ import com.dicoding.qurbanin.R
 import com.dicoding.qurbanin.data.model.ListEventQurbanResponseItem
 import com.dicoding.qurbanin.databinding.ItemRegisteredQurbanBinding
 
-class ListQurbanAdapter (private val listQurban: ArrayList<ListEventQurbanResponseItem>) : RecyclerView.Adapter<ListQurbanAdapter.ViewHolder>() {
+class ListQurbanAdapter(val listQurban: List<ListEventQurbanResponseItem> = mutableListOf()) : RecyclerView.Adapter<ListQurbanAdapter.ViewHolder>() {
 
     class ViewHolder(var binding: ItemRegisteredQurbanBinding) :
         RecyclerView.ViewHolder(binding.root)

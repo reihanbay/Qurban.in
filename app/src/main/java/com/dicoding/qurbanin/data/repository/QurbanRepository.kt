@@ -9,6 +9,7 @@ import com.dicoding.qurbanin.data.api.LocationServices
 import com.dicoding.qurbanin.data.model.DataEventItem
 import com.dicoding.qurbanin.data.model.DistrictResponse
 import com.dicoding.qurbanin.data.model.EventQurbanResponse
+import com.dicoding.qurbanin.data.model.ListEventQurbanResponseItem
 import com.dicoding.qurbanin.data.model.ProvinceResponseItem
 import com.dicoding.qurbanin.data.model.RegencyResponse
 import com.dicoding.qurbanin.data.model.SoldByItem
@@ -40,6 +41,57 @@ class QurbanRepository private constructor(
                     snapshot.children.forEach{
                         val data = it.getValue(DataEventItem::class.java)
                         dataList.add(EventQurbanResponse( it.key.toString(), data))
+                    }
+                    result.value = Result.Success(dataList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    result.value = Result.Error(error.message)
+                }
+            })
+        }
+        emitSource(result)
+    }
+
+
+    fun getEventByUserId(userId: String) : LiveData<Result<List<ListEventQurbanResponseItem>>> = liveData {
+        val result = MutableLiveData<Result<List<ListEventQurbanResponseItem>>>()
+        result.value = Result.Loading
+        val dataList = mutableListOf<ListEventQurbanResponseItem>()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            dbReference.child("EventRegistered").addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach{
+                        val data = it.getValue(ListEventQurbanResponseItem::class.java)
+                        if (data?.UID_User == userId) {
+                            dataList.add(data!!)
+                        }
+                    }
+                    result.value = Result.Success(dataList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    result.value = Result.Error(error.message)
+                }
+            })
+        }
+        emitSource(result)
+    }
+
+    fun getEventByUserIdAndStatus(userId: String, status: String) : LiveData<Result<List<ListEventQurbanResponseItem>>> = liveData {
+        val result = MutableLiveData<Result<List<ListEventQurbanResponseItem>>>()
+        result.value = Result.Loading
+        val dataList = mutableListOf<ListEventQurbanResponseItem>()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            dbReference.child("EventRegistered").addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach{
+                        val data = it.getValue(ListEventQurbanResponseItem::class.java)
+                        if (data?.UID_User == userId && data.StatusEvent == status) {
+                            dataList.add(data!!)
+                        }
                     }
                     result.value = Result.Success(dataList)
                 }

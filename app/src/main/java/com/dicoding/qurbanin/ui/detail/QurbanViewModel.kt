@@ -28,4 +28,7 @@ class QurbanViewModel(val repository: QurbanRepository) : ViewModel() {
         }
     }
 
+    fun getEventByUserId(userId: String) = repository.getEventByUserId(userId)
+    fun getEventByUserIdAndStatus(userId: String, status: String) = repository.getEventByUserIdAndStatus(userId, status)
+
 }
