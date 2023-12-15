@@ -1,16 +1,11 @@
 package com.dicoding.qurbanin.ui.home
 
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,16 +13,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.dicoding.qurbanin.R
 import com.dicoding.qurbanin.core.utils.utility.StringHelper
+import com.dicoding.qurbanin.data.Result
 import com.dicoding.qurbanin.data.model.DistrictResponse
 import com.dicoding.qurbanin.data.model.ProvinceResponseItem
 import com.dicoding.qurbanin.data.model.RegencyResponse
-import com.dicoding.qurbanin.data.Result
 import com.dicoding.qurbanin.databinding.FragmentHomeBinding
+import com.dicoding.qurbanin.databinding.ItemDialogSearchOrganizerBinding
 import com.dicoding.qurbanin.ui.ViewModelFactory
-import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.Dispatchers
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -53,16 +47,16 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val provinceAdapter = ArrayAdapter(requireActivity(), R.layout.dropdown_item, listProvince)
-        binding?.cvSearchOrganizerLocation?.autoTextProvince?.setAdapter(provinceAdapter)
+        binding?.cvSearchOrganizer?.autoTextProvince?.setAdapter(provinceAdapter)
 
         val regencyAdapter = ArrayAdapter(requireActivity(), R.layout.dropdown_item, listRegency)
-        binding?.cvSearchOrganizerLocation?.autoTextRegency?.setAdapter(regencyAdapter)
+        binding?.cvSearchOrganizer?.autoTextRegency?.setAdapter(regencyAdapter)
 
         val districtAdapter = ArrayAdapter(requireActivity(), R.layout.dropdown_item, listDistrict)
-        binding?.cvSearchOrganizerLocation?.autoTextDistrict?.setAdapter(districtAdapter)
+        binding?.cvSearchOrganizer?.autoTextDistrict?.setAdapter(districtAdapter)
 
         val villageAdapter = ArrayAdapter(requireActivity(), R.layout.dropdown_item, listVillage)
-        binding?.cvSearchOrganizerLocation?.autoTextVillage?.setAdapter(villageAdapter)
+        binding?.cvSearchOrganizer?.autoTextVillage?.setAdapter(villageAdapter)
 
         return binding?.root
     }
@@ -70,13 +64,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModelFactory = ViewModelFactory.getInstance(requireContext().applicationContext)
+        viewModelFactory = ViewModelFactory.getInstance(requireContext())
 
         viewLifecycleOwner.lifecycleScope.launch {
             homeViewModel.getUserName().collect { name ->
-                withContext(Dispatchers.Main) {
-                    binding?.tvGreeting?.text = StringHelper.greeting(name)
-                }
+                binding?.tvGreeting?.text = StringHelper.greeting(name)
             }
         }
 
@@ -84,13 +76,11 @@ class HomeFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             homeViewModel.getUserLocation().collect { location ->
-                withContext(Dispatchers.Main) {
-                    if (location.isBlank()) {
-                        showInputDialog()
-                    } else {
-                        userLocation = location
-                        binding?.tvUserLocation?.text = location
-                    }
+                if (location.isEmpty()) {
+                    showInputDialog()
+                } else {
+                    userLocation = location
+                    binding?.tvUserLocation?.text = location
                 }
             }
         }
@@ -122,15 +112,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun searchOrganizer() {
-        val autoTextProvince = binding?.cvSearchOrganizerLocation?.autoTextProvince
-        val autoTextRegency = binding?.cvSearchOrganizerLocation?.autoTextRegency
-        val autoTextDistrict = binding?.cvSearchOrganizerLocation?.autoTextDistrict
-        val autoTextVillage = binding?.cvSearchOrganizerLocation?.autoTextVillage
+        val autoTextProvince = binding?.cvSearchOrganizer?.autoTextProvince
+        val autoTextRegency = binding?.cvSearchOrganizer?.autoTextRegency
+        val autoTextDistrict = binding?.cvSearchOrganizer?.autoTextDistrict
+        val autoTextVillage = binding?.cvSearchOrganizer?.autoTextVillage
 
-        val textInputProvince = binding?.cvSearchOrganizerLocation?.textInputProvince
-        val textInputRegency = binding?.cvSearchOrganizerLocation?.textInputRegency
-        val textInputDistrict = binding?.cvSearchOrganizerLocation?.textInputDistrict
-        val textInputVillage = binding?.cvSearchOrganizerLocation?.textInputVillage
+        val textInputProvince = binding?.cvSearchOrganizer?.textInputProvince
+        val textInputRegency = binding?.cvSearchOrganizer?.textInputRegency
+        val textInputDistrict = binding?.cvSearchOrganizer?.textInputDistrict
+        val textInputVillage = binding?.cvSearchOrganizer?.textInputVillage
 
         var province = ""
         autoTextProvince?.setOnItemClickListener { adapterView, _, position, _ ->
@@ -155,7 +145,7 @@ class HomeFragment : Fragment() {
             village = adapterView.getItemAtPosition(position).toString()
         }
 
-        binding?.cvSearchOrganizerLocation?.btnSetOrSearch?.setOnClickListener {
+        binding?.cvSearchOrganizer?.btnSetOrSearch?.setOnClickListener {
             when {
                 province.isEmpty() -> {
                     textInputProvince?.error = getString(R.string.select_item_required)
@@ -248,81 +238,67 @@ class HomeFragment : Fragment() {
     }
 
     private fun showInputDialog() {
-        val inputDialog = Dialog(requireContext())
-        inputDialog.setContentView(R.layout.item_dialog_search_organizer)
-        inputDialog.setCancelable(false)
+        val bind = ItemDialogSearchOrganizerBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+        dialog.setView(bind.root)
+        dialog.setCancelable(false)
 
-        val title = inputDialog.findViewById<TextView>(R.id.text_enter_current_location)
-        val autoTextProvince = inputDialog.findViewById<AutoCompleteTextView>(R.id.auto_text_province)
-        val autoTextRegency = inputDialog.findViewById<AutoCompleteTextView>(R.id.auto_text_regency)
-        val autoTextDistrict = inputDialog.findViewById<AutoCompleteTextView>(R.id.auto_text_district)
-        val autoTextVillage = inputDialog.findViewById<AutoCompleteTextView>(R.id.auto_text_village)
-        val btnSetLocation = inputDialog.findViewById<Button>(R.id.btn_set_or_search)
-
-        val textInputProvince = inputDialog.findViewById<TextInputLayout>(R.id.text_input_province)
-        val textInputRegency = inputDialog.findViewById<TextInputLayout>(R.id.text_input_regency)
-        val textInputDistrict = inputDialog.findViewById<TextInputLayout>(R.id.text_input_district)
-        val textInputVillage = inputDialog.findViewById<TextInputLayout>(R.id.text_input_village)
-
-        title.visibility = View.VISIBLE
-        btnSetLocation.text = getString(R.string.set_location)
+        bind.textEnterCurrentLocation.visibility = View.VISIBLE
+        bind.btnSetOrSearch.text = getString(R.string.set_location)
 
         val provinceAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, listProvince)
-        autoTextProvince.setAdapter(provinceAdapter)
+        bind.autoTextProvince.setAdapter(provinceAdapter)
 
         val regencyAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, listRegency)
-        autoTextRegency.setAdapter(regencyAdapter)
+        bind.autoTextRegency.setAdapter(regencyAdapter)
 
         val districtAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, listDistrict)
-        autoTextDistrict.setAdapter(districtAdapter)
+        bind.autoTextDistrict.setAdapter(districtAdapter)
 
         val villageAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, listVillage)
-        autoTextVillage.setAdapter(villageAdapter)
+        bind.autoTextVillage.setAdapter(villageAdapter)
 
         var province = ""
-        autoTextProvince.setOnItemClickListener { adapterView, _, position, _ ->
+        bind.autoTextProvince.setOnItemClickListener { adapterView, _, position, _ ->
             province = adapterView.getItemAtPosition(position).toString()
             setProvinceId(province)
         }
 
         var regency = ""
-        autoTextRegency.setOnItemClickListener { adapterView, _, position, _ ->
+        bind.autoTextRegency.setOnItemClickListener { adapterView, _, position, _ ->
             regency = adapterView.getItemAtPosition(position).toString()
             setRegencyId(regency)
         }
 
         var district = ""
-        autoTextDistrict.setOnItemClickListener { adapterView, _, position, _ ->
+        bind.autoTextDistrict.setOnItemClickListener { adapterView, _, position, _ ->
             district = adapterView.getItemAtPosition(position).toString()
             setDistrictId(district)
         }
 
         var village = ""
-        autoTextVillage.setOnItemClickListener { adapterView, _, position, _ ->
+        bind.autoTextVillage.setOnItemClickListener { adapterView, _, position, _ ->
             village = adapterView.getItemAtPosition(position).toString()
         }
 
-        val width = resources.displayMetrics.widthPixels
-        inputDialog.window?.setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT)
-        inputDialog.show()
+        val build = dialog.show()
 
-        btnSetLocation.setOnClickListener {
+        bind.btnSetOrSearch.setOnClickListener {
             when {
                 province.isEmpty() -> {
-                    textInputProvince.error = getString(R.string.select_item_required)
+                    bind.textInputProvince.error = getString(R.string.select_item_required)
                 }
                 regency.isEmpty() -> {
-                    textInputRegency.error = getString(R.string.select_item_required)
-                    textInputProvince.error = null
-
+                    bind.textInputRegency.error = getString(R.string.select_item_required)
+                    bind.textInputProvince.error = null
                 }
                 district.isEmpty() -> {
-                    textInputDistrict.error = getString(R.string.select_item_required)
-                    textInputRegency.error = null
+                    bind.textInputDistrict.error = getString(R.string.select_item_required)
+                    bind.textInputRegency.error = null
                 }
                 village.isEmpty() -> {
-                    textInputVillage.error = getString(R.string.select_item_required)
-                    textInputDistrict.error = null
+                    bind.textInputVillage.error = getString(R.string.select_item_required)
+                    bind.textInputDistrict.error = null
                 }
                 else -> {
                     val location =
@@ -332,7 +308,7 @@ class HomeFragment : Fragment() {
                     setUserLocation(location)
 
                     if (location.isNotEmpty()) showToast("Set location success")
-                    inputDialog.dismiss()
+                    build.dismiss()
                 }
             }
         }
