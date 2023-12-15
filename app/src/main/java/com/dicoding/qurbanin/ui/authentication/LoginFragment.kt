@@ -81,12 +81,13 @@ class LoginFragment : Fragment() {
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     val userName = snapshot.child("Nama").value.toString()
                                     val userEmail = user.email.toString()
-                                    val userId = user.uid.toString()
+                                    val userId = uid
 
                                     lifecycleScope.launch {
                                         settingPreferences.setLoginSession(true)
                                         settingPreferences.setUserName(userName)
                                         settingPreferences.setUserEmail(userEmail)
+                                        settingPreferences.setUserId(userId)
                                     }
                                     findNavController().navigate(R.id.action_loginFragment_to_homeContainerFragment)
                                 }
