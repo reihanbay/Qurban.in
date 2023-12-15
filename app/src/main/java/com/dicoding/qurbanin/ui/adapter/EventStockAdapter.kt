@@ -38,10 +38,9 @@ class EventStockAdapter(val list: MutableList<StockDataResponse> = mutableListOf
 
     override fun onBindViewHolder(holder: EventStockAdapter.StockViewHolder, position: Int) {
         val item = list[position]
-
-
         holder.bind.apply {
             tvNameStock.text = item.keyItem
+            clContainer.isEnabled = item.dataItem?.StatusStock != "sold"
             tvNotePricing.text = holder.itemView.context.getString(R.string.text_note_pricing, item.dataItem?.Price)
             btnIconDropdown.setOnClickListener {
                 llParticipation.isVisible = !btnIconDropdown.isActivated
@@ -67,14 +66,16 @@ class EventStockAdapter(val list: MutableList<StockDataResponse> = mutableListOf
                 llParticipation.removeAllViews()
                 llParticipation.addView(view.root)
             }
-
-
             //Backgrond Color
             fun colorBg(selected: Boolean) {
-                if (selected) clContainer.setBackgroundColor(holder.itemView.context.getColor(R.color.green_100))
-                else clContainer.setBackgroundColor(holder.itemView.context.getColor(R.color.white))
+                if (clContainer.isEnabled) {
+                    if (selected) clContainer.setBackgroundColor(holder.itemView.context.getColor(R.color.green_100))
+                    else clContainer.setBackgroundColor(holder.itemView.context.getColor(R.color.white))
+                } else {
+                    clContainer.setBackgroundColor(holder.itemView.context.getColor(R.color.grey_80))
+                }
             }
-            colorBg(selectedItemPosition == position )
+            colorBg(selectedItemPosition == position)
             clContainer.setOnClickListener{
                 if (item.dataItem?.StatusStock != "sold") {
                     selectedItemPosition = position
@@ -88,6 +89,7 @@ class EventStockAdapter(val list: MutableList<StockDataResponse> = mutableListOf
                 }
                 notifyItemChanged(selectedItemPosition)
             }
+
         }
     }
 

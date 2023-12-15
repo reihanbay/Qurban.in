@@ -24,7 +24,7 @@ import com.dicoding.qurbanin.ui.adapter.EventStockAdapter
 
 class DetailFragment : Fragment() {
     private lateinit var bind : FragmentDetailBinding
-    private val factory : ViewModelFactory = ViewModelFactory.getInstance(requireContext().applicationContext)
+    private val factory by lazy { ViewModelFactory.getInstance(requireContext().applicationContext) }
     private val viewModel : QurbanViewModel by viewModels {
         factory
     }
@@ -46,7 +46,6 @@ class DetailFragment : Fragment() {
     }
     private fun initObservable() {
         viewModel.getEventById(args.idEvent).observe(viewLifecycleOwner) {
-            Log.d("Asd", "initObservable: $it")
             when(it) {
                 is Result.Success -> {
                     bind.container.visibility = View.VISIBLE

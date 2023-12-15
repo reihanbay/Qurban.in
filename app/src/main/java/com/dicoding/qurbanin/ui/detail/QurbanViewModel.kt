@@ -9,7 +9,7 @@ import com.dicoding.qurbanin.data.model.EventQurbanResponse
 import com.dicoding.qurbanin.data.repository.QurbanRepository
 import kotlinx.coroutines.launch
 
-class QurbanViewModel(val repository: QurbanRepository) : ViewModel() {
+class QurbanViewModel(private val repository: QurbanRepository) : ViewModel() {
 
     private val _eventData = MutableLiveData<Result<EventQurbanResponse>>()
     val eventData  : LiveData<Result<EventQurbanResponse>> = _eventData
@@ -19,10 +19,9 @@ class QurbanViewModel(val repository: QurbanRepository) : ViewModel() {
 
     fun getEventById(idEvent: String) = repository.getEventById(idEvent)
 
-    fun getStockByIdEvent(idEvent: String) {
-        viewModelScope.launch {
-            repository.getStockByIdEvent(idEvent)
-        }
-    }
+    fun getEvenRegisteredById(idEventRegistered: String) = repository.getEventRegisteredById(idEventRegistered)
+
+
+    fun getStockById(idEvent: String, idStock:String) = repository.getStockById(idEvent, idStock)
 
 }

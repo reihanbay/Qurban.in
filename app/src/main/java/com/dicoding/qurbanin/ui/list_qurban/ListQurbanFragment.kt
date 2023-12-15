@@ -29,7 +29,7 @@ class ListQurbanFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentListQurbanBinding.inflate(inflater, container, false)
         return binding.root
@@ -42,7 +42,7 @@ class ListQurbanFragment : Fragment() {
         binding.rvHistory.layoutManager = layoutManager
 
         val listQurbanViewModel = ViewModelProvider(this,
-            ViewModelProvider.NewInstanceFactory()).get(ListQurbanViewModel::class.java)
+            ViewModelProvider.NewInstanceFactory())[ListQurbanViewModel::class.java]
 
         listQurbanViewModel.listQurban.observe(viewLifecycleOwner) {
             setQurbanList(it)

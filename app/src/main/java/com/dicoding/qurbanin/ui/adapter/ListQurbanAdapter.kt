@@ -30,9 +30,10 @@ class ListQurbanAdapter (private val listQurban: ArrayList<ListEventQurbanRespon
 
         with(holder.binding) {
             tvHeadlineOrganizer.text = listQurbanItem.Pelaksanaan
-            tvStatusContainer.text = listQurbanItem.StatusEvent
+            val status = listQurbanItem.StatusEvent
+            tvStatusContainer.text = status
 
-            tvStatusContainer.backgroundTintList = when (listQurbanItem.StatusEvent) {
+            tvStatusContainer.backgroundTintList = when (status) {
                 "Belum Lunas" -> ColorStateList.valueOf(holder.itemView.context.getColor(R.color.yellow))
                 "Lunas" -> ColorStateList.valueOf(holder.itemView.context.getColor(R.color.green_40))
                 "Sedang Berlangsung" -> ColorStateList.valueOf(holder.itemView.context.getColor(R.color.blue))
@@ -58,4 +59,5 @@ class ListQurbanAdapter (private val listQurban: ArrayList<ListEventQurbanRespon
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
+
 }

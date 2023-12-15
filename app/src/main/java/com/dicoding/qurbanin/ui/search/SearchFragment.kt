@@ -21,12 +21,12 @@ import com.google.android.material.snackbar.Snackbar
 class SearchFragment : Fragment() {
 
     private lateinit var bind: FragmentSearchBinding
-    private val factory = ViewModelFactory.getInstance()
+    private val factory by lazy { ViewModelFactory.getInstance(requireContext().applicationContext) }
     private val viewModel: SearchViewModel by viewModels {
         factory
     }
     private val searchAdapter : SearchAdapter by lazy { SearchAdapter() }
-    private lateinit var listEvent : List<EventQurbanResponse>
+    private val listEvent : MutableList<EventQurbanResponse> by lazy { mutableListOf() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,7 +81,7 @@ class SearchFragment : Fragment() {
             when(it) {
                 is Result.Success -> {
                     bind.progressBar.isVisible = false
-                    listEvent = it.data
+                    listEvent.addAll(it.data)
                     searchAdapter.submitList(it.data)
                 }
                 is Result.Error -> {
