@@ -17,10 +17,13 @@ import com.dicoding.qurbanin.R
 import com.dicoding.qurbanin.core.utils.utility.DialogUtils
 import com.dicoding.qurbanin.data.Result
 import com.dicoding.qurbanin.data.model.EventQurbanResponse
+import com.dicoding.qurbanin.data.model.EventRegisteredResponse
+import com.dicoding.qurbanin.data.model.EventRegisteredResponseItem
 import com.dicoding.qurbanin.data.model.StockDataResponse
 import com.dicoding.qurbanin.databinding.FragmentDetailBinding
 import com.dicoding.qurbanin.ui.ViewModelFactory
 import com.dicoding.qurbanin.ui.adapter.EventStockAdapter
+import com.google.firebase.auth.FirebaseAuth
 
 class DetailFragment : Fragment() {
     private lateinit var bind : FragmentDetailBinding
@@ -28,6 +31,7 @@ class DetailFragment : Fragment() {
     private val viewModel : QurbanViewModel by viewModels {
         factory
     }
+    private lateinit var dataEvent: EventQurbanResponse
     private val args : DetailFragmentArgs by navArgs()
     private val stockAdapter : EventStockAdapter by lazy { EventStockAdapter() }
     override fun onCreateView(
@@ -49,12 +53,27 @@ class DetailFragment : Fragment() {
             when(it) {
                 is Result.Success -> {
                     bind.container.visibility = View.VISIBLE
-                    initUI(it.data)
+                    dataEvent = it.data
+                    initUI()
                 }
                 is Result.Loading -> {
                     bind.container.visibility = View.GONE
                 }
                 else -> {}
+            }
+        }
+
+        viewModel.successRegistered.observe(viewLifecycleOwner) {
+            when(it) {
+                is Result.Success -> {
+                    findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToHomeContainerFragment())
+                }
+                is Result.Loading -> {
+
+                }
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -68,28 +87,32 @@ class DetailFragment : Fragment() {
                 dataSelect = data
             }
         })
+        val auth = FirebaseAuth.getInstance().currentUser
+
         bind.btnRegisterEvent.setOnClickListener{
             if (dataSelect!=null) {
                 DialogUtils.showDialogRegisterEvent(requireActivity(), dataSelect!!.keyItem.split("-")[0], getString(R.string.textDescDialogRegister, dataSelect!!.keyItem, dataSelect!!.dataItem?.Price)) {
-                    Toast.makeText(requireContext(), dataSelect!!.keyItem, Toast.LENGTH_SHORT).show()
+                    val data = EventRegisteredResponseItem(dataSelect!!.keyItem,"unpaid",dataEvent.data!!.Pelaksanaan,dataEvent.idEvent,dataEvent.data!!.Name,dataEvent.data!!.Pengambilan, auth!!.uid,
+                        dataEvent.data!!.Lokasi,dataEvent.data!!.Name,dataEvent.data!!.Rekening)
+                    viewModel.registerEvent(data)
                 }
             }
         }
     }
-    private fun initUI(data: EventQurbanResponse) {
+    private fun initUI() {
         bind.apply {
             val stock : (String) -> List<StockDataResponse>? = { param ->
-                data.stock?.filter { it.dataItem?.Type.toString() == param }
+                dataEvent.stock?.filter { it.dataItem?.Type.toString() == param }
             }
             val sold : (String) -> List<StockDataResponse> = { stockData->
                 stock(stockData)?.filter { (it.dataItem?.StatusStock == "sold" )} ?: listOf()
             }
             tvCountPiecesSohibul.text = getString(R.string.textStock, sold("single").size.toString(), stock("single")?.size.toString() )
             tvCountGroupSohibul.text = getString(R.string.textStock, sold("group").size.toString(), stock("group")?.size.toString() )
-            tvHeadlineOrganizer.text = data.data?.Name
-            tvAddress.text = data.data?.Lokasi
-            tvExecution.text = data.data?.Pelaksanaan
-            tvDeliver.text = data.data?.Pengambilan
+            tvHeadlineOrganizer.text = dataEvent.data?.Name
+            tvAddress.text = dataEvent.data?.Lokasi
+            tvExecution.text = dataEvent.data?.Pelaksanaan
+            tvDeliver.text = dataEvent.data?.Pengambilan
             ivEventOrganizer.clipToOutline = true
             rvStock.apply {
                 layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -97,7 +120,7 @@ class DetailFragment : Fragment() {
                 setHasFixedSize(true)
                 (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = true
             }
-            stockAdapter.setData(data.stock?: listOf())
+            stockAdapter.setData(dataEvent.stock?: listOf())
         }
     }
 

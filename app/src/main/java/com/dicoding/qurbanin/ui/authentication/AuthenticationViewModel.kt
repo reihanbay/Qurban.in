@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
+import com.dicoding.qurbanin.R
 import com.dicoding.qurbanin.core.utils.datastore.SettingPreferences
 import com.dicoding.qurbanin.data.Result
 import com.dicoding.qurbanin.data.model.UserResponse
@@ -13,7 +15,10 @@ import com.dicoding.qurbanin.data.repository.AuthRepository
 import com.dicoding.qurbanin.data.repository.LocationRepository
 import com.google.firebase.database.DataSnapshot
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class AuthenticationViewModel(private val preferences: SettingPreferences,
@@ -26,6 +31,7 @@ class AuthenticationViewModel(private val preferences: SettingPreferences,
 
     private val _getDataUser = MutableLiveData<Result<UserResponse>>()
     val getDataUser = _getDataUser as LiveData<Result<UserResponse>>
+
     fun loginUser(email: String, password: String) = scope.launch {
         repository.loginUser(email, password).collect {
             when (it) {
@@ -33,6 +39,14 @@ class AuthenticationViewModel(private val preferences: SettingPreferences,
                 is Result.Error -> _isLoginDone.value = it
                 is Result.Loading -> _isLoginDone.value = it
             }
+        }
+    }
+
+    fun logoutUser() {
+        scope.launch {
+            preferences.setLoginSession(false)
+            preferences.deletePreference()
+            repository.logout()
         }
     }
 
@@ -51,6 +65,9 @@ class AuthenticationViewModel(private val preferences: SettingPreferences,
         preferences.setLoginSession(true)
         preferences.setUserName(userName)
     }
+
+    fun getDataUserNameLocal()  = preferences.getUsername().asLiveData()
+    fun getDataUserEmail()  = repository.getEmail()
 
     fun isLogin() : LiveData<Boolean> = preferences.isLogin().asLiveData()
 

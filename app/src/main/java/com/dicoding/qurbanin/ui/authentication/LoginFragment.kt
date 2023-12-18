@@ -80,7 +80,6 @@ class LoginFragment : Fragment() {
         viewModel.getDataUser.observe(viewLifecycleOwner) { dataSnap ->
             when (dataSnap) {
                 is Result.Success -> {
-                    Log.d("TAG", "initObservable: $dataSnap")
                     viewModel.setDataUserLocal(dataSnap.data)
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeContainerFragment())
                 }

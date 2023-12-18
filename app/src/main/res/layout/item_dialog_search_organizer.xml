@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp">
@@ -11,9 +12,10 @@
         style="@style/TextBody.Bold.BodyLarge"
         android:layout_width="0dp"
         android:paddingBottom="24dp"
+        android:visibility="gone"
         android:text="@string/enter_current_location"
         android:textColor="@color/green_40"
-        android:visibility="gone"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +42,9 @@
         app:cursorColor="@color/green_40"
         app:endIconTint="@color/green_40"
         app:errorEnabled="true"
+        app:hintEnabled="false"
         app:hintAnimationEnabled="false"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_province">
@@ -51,7 +55,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
-            android:text="@string/ex_province"
+            android:hint="@string/ex_province"
             android:textSize="12sp"
             tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,6 +76,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:background="@color/background_container"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -80,7 +85,9 @@
         app:cursorColor="@color/green_40"
         app:endIconTint="@color/green_40"
         app:errorEnabled="true"
+        app:hintEnabled="false"
         app:hintAnimationEnabled="false"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/text_regency">
@@ -92,7 +99,7 @@
             android:ellipsize="end"
             android:inputType="text"
             android:maxLines="1"
-            android:text="@string/ex_regency"
+            android:hint="@string/ex_regency"
             android:textSize="12sp"
             tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -121,7 +128,10 @@
         app:cursorColor="@color/green_40"
         app:endIconTint="@color/green_40"
         app:errorEnabled="true"
+        android:background="@color/background_container"
+        app:hintEnabled="false"
         app:hintAnimationEnabled="false"
+        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toTopOf="@id/btn_set_or_search"
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +143,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
-            android:text="@string/ex_district"
+            android:hint="@string/ex_district"
             android:textSize="12sp"
             tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -163,7 +173,10 @@
         app:cursorColor="@color/green_40"
         app:endIconTint="@color/green_40"
         app:errorEnabled="true"
+        app:hintEnabled="false"
         app:hintAnimationEnabled="false"
+        android:layout_marginTop="4dp"
+        android:background="@color/background_container"
         app:layout_constraintBottom_toTopOf="@+id/btn_set_or_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline"
@@ -175,7 +188,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
-            android:text="@string/ex_village"
+            android:hint="@string/ex_village"
             android:textSize="12sp"
             tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>

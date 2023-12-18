@@ -5,11 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.qurbanin.R
-import com.dicoding.qurbanin.data.model.ListEventQurbanResponseItem
+import com.dicoding.qurbanin.core.utils.utility.StringHelper
+import com.dicoding.qurbanin.data.model.EventRegisteredResponse
 import com.dicoding.qurbanin.databinding.ItemRegisteredQurbanBinding
 
-class ListQurbanAdapter (private val listQurban: ArrayList<ListEventQurbanResponseItem>) : RecyclerView.Adapter<ListQurbanAdapter.ViewHolder>() {
+class ListQurbanAdapter (private val listQurban: ArrayList<EventRegisteredResponse> = arrayListOf()) : RecyclerView.Adapter<ListQurbanAdapter.ViewHolder>() {
 
+    fun setData(list: List<EventRegisteredResponse>) {
+        listQurban.clear()
+        listQurban.addAll(list)
+        notifyDataSetChanged()
+    }
     class ViewHolder(var binding: ItemRegisteredQurbanBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -26,34 +32,29 @@ class ListQurbanAdapter (private val listQurban: ArrayList<ListEventQurbanRespon
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val listQurbanItem = listQurban[position]
+        val listQurban = listQurban[position]
+        val listQurbanItem = listQurban.model
 
         with(holder.binding) {
-            tvHeadlineOrganizer.text = listQurbanItem.Pelaksanaan
-            val status = listQurbanItem.StatusEvent
-            tvStatusContainer.text = status
+            tvHeadlineOrganizer.text = listQurbanItem?.pelaksanaan
+            val status = listQurbanItem?.statusStock
+            val (color, text) = StringHelper.styleTextViewStatus(holder.itemView.context, status.toString())
+            tvStatusContainer.backgroundTintList = color
+            tvStatusContainer.text = text
 
-            tvStatusContainer.backgroundTintList = when (status) {
-                "Belum Lunas" -> ColorStateList.valueOf(holder.itemView.context.getColor(R.color.yellow))
-                "Lunas" -> ColorStateList.valueOf(holder.itemView.context.getColor(R.color.green_40))
-                "Sedang Berlangsung" -> ColorStateList.valueOf(holder.itemView.context.getColor(R.color.blue))
-                "Tersembelih" -> ColorStateList.valueOf(holder.itemView.context.getColor(R.color.purple))
-                else -> null
-            }
-
-            tvAddress.text = listQurbanItem.Location
-            tvNameStock.text = listQurbanItem.IDStock
-            tvExecutionDate.text = listQurbanItem.Pelaksanaan
-            tvDeliverTime.text = listQurbanItem.Pengambilan
+            tvAddress.text = listQurbanItem?.location
+            tvNameStock.text = listQurbanItem?.idstock
+            tvExecutionDate.text = listQurbanItem?.pelaksanaan
+            tvDeliverTime.text = listQurbanItem?.pengambilan
         }
 
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(listQurbanItem)
+            onItemClickCallback.onItemClicked(listQurban.idRegistered)
         }
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: ListEventQurbanResponseItem)
+        fun onItemClicked(data: String)
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {

@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.qurbanin.R
-import com.dicoding.qurbanin.data.model.ListEventQurbanResponseItem
+import com.dicoding.qurbanin.data.model.EventRegisteredResponse
 import com.dicoding.qurbanin.databinding.FragmentListQurbanBinding
 import com.dicoding.qurbanin.ui.adapter.ListQurbanAdapter
+import com.dicoding.qurbanin.ui.home.HomeContainerFragmentDirections
 
 class ListQurbanFragment : Fragment() {
 
@@ -49,16 +51,14 @@ class ListQurbanFragment : Fragment() {
         }
     }
 
-    private fun setQurbanList(listQurban: ArrayList<ListEventQurbanResponseItem>) {
-        val adapter = ListQurbanAdapter(listQurban)
+    private fun setQurbanList(listQurban: ArrayList<EventRegisteredResponse>) {
+        val adapter = ListQurbanAdapter()
+        adapter.setData(listQurban)
         binding.rvHistory.adapter = adapter
 
         adapter.setOnItemClickCallback(object : ListQurbanAdapter.OnItemClickCallback{
-
-            override fun onItemClicked(data: ListEventQurbanResponseItem) {
-                val mBundle = Bundle()
-                mBundle.putString(EXTRA_ID_EVENT,data.IDEvent)
-                view?.findNavController()?.navigate(R.id.action_listQurbanFragment_to_statusQurbanFragment,mBundle)
+            override fun onItemClicked(data: String) {
+                findNavController().navigate(HomeContainerFragmentDirections.actionHomeContainerFragmentToStatusQurbanFragment(data))
             }
         })
     }

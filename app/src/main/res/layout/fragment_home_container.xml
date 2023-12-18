@@ -16,7 +16,7 @@
         />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        app:backgroundTint="@color/background_bottom_nav"
+        app:backgroundTint="@color/background_container"
         app:labelVisibilityMode="unlabeled"
         app:itemActiveIndicatorStyle="@android:color/transparent"
         android:layout_width="match_parent"

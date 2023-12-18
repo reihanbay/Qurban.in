@@ -4,16 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbarSize="0dp"
+    style="@style/ContainerScreen"
     android:fitsSystemWindows="true"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:orientation="vertical"
-        android:padding="24dp">
+        >
 
         <ImageView
             android:layout_width="wrap_content"
@@ -74,12 +78,32 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="@string/nearest_organizer" />
+        <TextView
+            android:id="@+id/empty_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:background="@drawable/bg_rounded_8dp"
+            android:backgroundTint="@color/green_100"
+            android:textColor="@color/green_20"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/text_not_nearest_event"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:indeterminateTint="@color/green_40"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_nearest_organizer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginBottom="24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_nearest_organizer" />
     </LinearLayout>

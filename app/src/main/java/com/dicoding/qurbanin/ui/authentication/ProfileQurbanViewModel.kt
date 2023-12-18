@@ -4,19 +4,23 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.qurbanin.data.model.ListEventQurbanResponseItem
+import com.dicoding.qurbanin.data.model.EventRegisteredResponse
+import com.dicoding.qurbanin.data.model.EventRegisteredResponseItem
+import com.dicoding.qurbanin.data.repository.AuthRepository
+import com.dicoding.qurbanin.data.repository.QurbanRepository
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class ProfileQurbanViewModel : ViewModel() {
+class ProfileQurbanViewModel() : ViewModel() {
 
-    private val _registeredQurban = MutableLiveData<ArrayList<ListEventQurbanResponseItem>>()
-    val registeredQurban: LiveData<ArrayList<ListEventQurbanResponseItem>> = _registeredQurban
+    private val _registeredQurban = MutableLiveData<ArrayList<EventRegisteredResponse>>()
+    val registeredQurban: LiveData<ArrayList<EventRegisteredResponse>> = _registeredQurban
 
-    private var registeredQurbanArray : ArrayList<ListEventQurbanResponseItem> = arrayListOf()
+    private var registeredQurbanArray : ArrayList<EventRegisteredResponse> = arrayListOf()
 
     private lateinit var databaseReference: DatabaseReference
 
@@ -31,12 +35,12 @@ class ProfileQurbanViewModel : ViewModel() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (item in snapshot.children) {
-                        val data = item.getValue(ListEventQurbanResponseItem::class.java)
+                        val data = item.getValue(EventRegisteredResponseItem::class.java)
 
                         // TODO: Replace userID retrieval using Datastore
-                        val userId = "aum5Pmn7NkcqGUhriXs6uR5CIrD3"
-                        if (data?.UID_User == userId && data.StatusEvent == "Sedang Berlangsung") {
-                            registeredQurbanArray.add(data)
+                        val userId = FirebaseAuth.getInstance().currentUser?.uid
+                        if (data?.uid_User == userId && data?.statusStock == "ongoing") {
+                            registeredQurbanArray.add(EventRegisteredResponse(item.key.toString(), data))
                         }
                     }
                 }

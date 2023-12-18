@@ -21,7 +21,7 @@ class ViewModelFactory private constructor(private val preferences: SettingPrefe
                 return SearchViewModel(repoInject.provideQurbanRepository()) as T
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                return HomeViewModel(preferences, repoInject.provideLocationRepository()) as T
+                return HomeViewModel(preferences, repoInject.provideLocationRepository(), repoInject.provideQurbanRepository()) as T
             }
 
             modelClass.isAssignableFrom(QurbanViewModel::class.java) -> {

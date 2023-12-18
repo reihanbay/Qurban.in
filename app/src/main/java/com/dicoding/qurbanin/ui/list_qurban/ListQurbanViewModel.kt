@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.qurbanin.data.model.ListEventQurbanResponseItem
+import com.dicoding.qurbanin.data.model.EventRegisteredResponse
+import com.dicoding.qurbanin.data.model.EventRegisteredResponseItem
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -14,10 +16,10 @@ import com.google.firebase.database.ValueEventListener
 
 class ListQurbanViewModel : ViewModel() {
 
-    private val _listQurban = MutableLiveData<ArrayList<ListEventQurbanResponseItem>>()
-    val listQurban: LiveData<ArrayList<ListEventQurbanResponseItem>> = _listQurban
+    private val _listQurban = MutableLiveData<ArrayList<EventRegisteredResponse>>()
+    val listQurban: LiveData<ArrayList<EventRegisteredResponse>> = _listQurban
 
-    private var listQurbanArray : ArrayList<ListEventQurbanResponseItem> = arrayListOf()
+    private var listQurbanArray : ArrayList<EventRegisteredResponse> = arrayListOf()
 
     private lateinit var databaseReference: DatabaseReference
 
@@ -35,12 +37,12 @@ class ListQurbanViewModel : ViewModel() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (item in snapshot.children) {
-                        val data = item.getValue(ListEventQurbanResponseItem::class.java)
+                        val data = item.getValue(EventRegisteredResponseItem::class.java)
 
                         // TODO: Replace userID retrieval using Datastore
-                        val userId = "aum5Pmn7NkcqGUhriXs6uR5CIrD3"
-                        if (data?.UID_User == userId) {
-                            listQurbanArray.add(data)
+                        val userId = FirebaseAuth.getInstance().currentUser?.uid
+                        if (data?.uid_User == userId) {
+                            listQurbanArray.add(EventRegisteredResponse(item.key.toString(), data))
                         }
                     }
                 }

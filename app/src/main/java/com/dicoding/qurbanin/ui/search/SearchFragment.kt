@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.qurbanin.data.Result
@@ -25,6 +26,7 @@ class SearchFragment : Fragment() {
     private val viewModel: SearchViewModel by viewModels {
         factory
     }
+    private val args : SearchFragmentArgs by navArgs()
     private val searchAdapter : SearchAdapter by lazy { SearchAdapter() }
     private val listEvent : MutableList<EventQurbanResponse> by lazy { mutableListOf() }
     override fun onCreateView(
@@ -38,7 +40,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getListEvent("")
+        viewModel.getListEvent(args.location)
         initObservable(view)
     }
 
@@ -49,6 +51,7 @@ class SearchFragment : Fragment() {
                 adapter = searchAdapter
                 setHasFixedSize(true)
             }
+            tvLocationSearch.text = args.location
         }
     }
 
@@ -82,6 +85,7 @@ class SearchFragment : Fragment() {
                 is Result.Success -> {
                     bind.progressBar.isVisible = false
                     listEvent.addAll(it.data)
+                    searchAdapter.submitList(listOf())
                     searchAdapter.submitList(it.data)
                 }
                 is Result.Error -> {

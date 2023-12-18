@@ -53,6 +53,17 @@ class AuthRepository private constructor(private val dbReference: DatabaseRefere
             }
         }
     }
+
+    fun getEmail() : LiveData<Result<String>> = liveData {
+        val liveData = MutableLiveData<Result<String>>()
+        val email = auth.currentUser?.email
+        liveData.value = Result.Success(email.toString())
+        emitSource(liveData)
+    }
+    fun logout() : Result<Boolean> {
+        auth.signOut()
+        return Result.Success(true)
+    }
     companion object {
         @Volatile
         private var instance : AuthRepository? = null

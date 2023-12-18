@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <base-config cleartextTrafficPermitted="false" />
+    <base-config cleartextTrafficPermitted="true" />
     <domain-config>
-        <domain includeSubdomains="true">https://qurban-in-default-rtdb.asia-southeast1.firebasedatabase.app/</domain>
+        <domain includeSubdomains="true">https://qurban-in-default-rtdb.asia-southeast1.firebasedatabase.app</domain>
+        <domain includeSubdomains="true">https://www.emsifa.com</domain>
     </domain-config>
 </network-security-config>

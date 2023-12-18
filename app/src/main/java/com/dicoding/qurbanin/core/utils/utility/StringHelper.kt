@@ -1,5 +1,8 @@
 package com.dicoding.qurbanin.core.utils.utility
 
+import android.content.Context
+import android.content.res.ColorStateList
+import com.dicoding.qurbanin.R
 import java.util.Calendar
 
 object StringHelper {
@@ -31,4 +34,23 @@ object StringHelper {
         }
         return greet + name
     }
+
+    fun styleTextViewStatus(context: Context, status:String) : Pair<ColorStateList, String> =
+        when (status) {
+            "unpaid" -> ColorStateList.valueOf(context.getColor(R.color.yellow))
+            "sold","available" -> ColorStateList.valueOf(context.getColor(R.color.green_40))
+            "ongoing" -> ColorStateList.valueOf(context.getColor(R.color.blue))
+            "execute" -> ColorStateList.valueOf(context.getColor(R.color.purple))
+            "cancel" -> ColorStateList.valueOf(context.getColor(R.color.red))
+            else -> ColorStateList.valueOf(context.getColor(R.color.grey_20))
+        } to
+        when (status) {
+            "unpaid" -> context.getString(R.string.unpaid)
+            "available" -> context.getString(R.string.available)
+            "sold" -> context.getString(R.string.sold)
+            "ongoing" -> context.getString(R.string.ongoing)
+            "execute" -> context.getString(R.string.execute)
+            "cancel" -> context.getString(R.string.cancel)
+            else -> context.getString(R.string.deliver)
+        }
 }
